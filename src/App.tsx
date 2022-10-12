@@ -28,7 +28,7 @@ let _speechSynth: any;
 let _voices: any;
 const _cache: any = {};
 
-function loadVoicesWhenAvailable(onComplete = () => { }) {
+function loadVoicesWhenAvailable(onComplete = () => {}) {
   _speechSynth = window.speechSynthesis;
   const voices = _speechSynth.getVoices();
 
@@ -104,11 +104,11 @@ function App() {
   const [facingMode, setFacingMode] = useState(CAMERA_MODE.USER);
 
   const createTensorgram = (detections: any) => {
-    const tensorgram = document.getElementById('tensorgram') as HTMLDivElement;
+    const tensorgram = document.getElementById("tensorgram") as HTMLDivElement;
     tensorgram.replaceChildren();
     detections.forEach((detection: any) => {
-      const [x, y, width, height] = detection['bbox'];
-      const text = detection['class'];
+      const [x, y, width, height] = detection["bbox"];
+      const text = detection["class"];
 
       const frameDetect = document.createElement("div");
       const frameLabelContainer = document.createElement("div");
@@ -116,11 +116,15 @@ function App() {
       frameLabelText.innerText = text;
       frameLabelContainer.appendChild(frameLabelText);
       frameDetect.appendChild(frameLabelContainer);
-      frameDetect.classList.add('tensorframe');
+      frameDetect.classList.add("tensorframe");
       frameDetect.style.position = "absolute";
 
-      const videoSelected = document.getElementById('webcam') as HTMLVideoElement;
-      const tensorGram = document.getElementById('tensorgram') as HTMLDivElement;
+      const videoSelected = document.getElementById(
+        "webcam"
+      ) as HTMLVideoElement;
+      const tensorGram = document.getElementById(
+        "tensorgram"
+      ) as HTMLDivElement;
 
       const clientWidth = tensorGram.clientWidth;
       const videoWidth = videoSelected.videoWidth;
@@ -133,15 +137,15 @@ function App() {
       frameDetect.style.top = `${(y * clientHeight) / videoHeight}px`;
 
       tensorgram.appendChild(frameDetect);
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     (async () => {
       const network = await cocossd.load();
       setNeuralNetwork(network);
     })();
-    return () => { };
+    return () => {};
   }, []);
 
   const handleRevertCameraMode = useCallback(() => {
@@ -175,7 +179,7 @@ function App() {
     };
     f();
 
-    return () => { };
+    return () => {};
   }, [voiceUI]);
 
   const detect = async (net: any) => {
@@ -229,7 +233,7 @@ function App() {
       tensorGramVideo.style.width = `${clientWidth}px`;
       tensorGramVideo.style.height = `${clientHeight}px`;
     }
-    return () => { };
+    return () => {};
   }, [webcamLoaded, webcamRef, portrait, landscape]);
 
   const parseObjects = (objects: string[]) => {
@@ -259,6 +263,30 @@ function App() {
     setDetections([]);
     const tensorGram = document.getElementById("tensorgram") as HTMLDivElement;
     tensorGram.replaceChildren();
+  };
+
+  const ObjectToVoiceButton = () => {
+    return (
+      <button
+        title={voiceActivated ? t("turn.on.voice") : t("turn.off.voice")}
+        className="bg-[white] dark:bg-redlight transition hover:scale-110 rounded-full p-[0.8rem]"
+        onClick={handleVoiceActivation}
+      >
+        {voiceActivated ? (
+          <img
+            src={VolumeOn}
+            alt="Volume on"
+            className="h-[2.5rem] lg:h-[1.7rem]"
+          />
+        ) : (
+          <img
+            src={VolumeOff}
+            alt="Volume off"
+            className="h-[2.5rem] lg:h-[1.7rem]"
+          />
+        )}
+      </button>
+    );
   };
 
   return (
@@ -297,7 +325,7 @@ function App() {
         >
           <img
             src={WelcomeLogo}
-            alt="Welcome to Scanner Cam"
+            alt={t("welcome.message")}
             className="welcome hidden lg:block"
           />
           <h2 className="text-[white] text-2xl font-bold">
@@ -338,25 +366,7 @@ function App() {
           }}
         ></div>
         <div className="absolute lg:flex justify-between hidden w-[36rem] pb-[1.25rem] z-10">
-          <button
-            title="Turn off volume"
-            className="bg-[white] dark:bg-redlight transition hover:scale-110 rounded-full p-[0.8rem]"
-            onClick={handleVoiceActivation}
-          >
-            {voiceActivated ? (
-              <img
-                src={VolumeOn}
-                alt="Volume on"
-                className="h-[2.5rem] lg:h-[1.7rem]"
-              />
-            ) : (
-              <img
-                src={VolumeOff}
-                alt="Volume off"
-                className="h-[2.5rem] lg:h-[1.7rem]"
-              />
-            )}
-          </button>
+          <ObjectToVoiceButton />
           <button
             onClick={handleCameraActivation}
             title="Turn off volume"
@@ -415,8 +425,9 @@ function App() {
             alt="Volume off"
             className="h-[2.5rem] transition-all duration-700"
             style={{
-              transform: `rotateY(${facingMode === CAMERA_MODE.USER ? 180 : 0
-                }deg)`,
+              transform: `rotateY(${
+                facingMode === CAMERA_MODE.USER ? 180 : 0
+              }deg)`,
             }}
           />
         </button>
