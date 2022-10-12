@@ -1,38 +1,76 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.welcome {
+  height: 35%;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  .welcome {
+    animation: App-logo-spin infinite 30s ease;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from {
+  0% {
     transform: rotate(0deg);
+    opacity: 0;
   }
-  to {
+  10% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 100;
+  }
+  50% {
+    transform: scale(0.5) rotate(180deg);
+    opacity: 100;
+  }
+  95% {
     transform: rotate(360deg);
+    opacity: 100;
   }
+  100% {
+    transform: rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.Webcam-module {
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+
+.tensorgram {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.tensorframe {
+  border: 0.4rem solid #FFC2EF;
+  border-radius: 1.4rem;
+}
+
+.tensorframe div {
+  position: absolute;
+  bottom: -1.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 20;
+}
+
+.tensorframe p {
+  background-color: #FFC2EF;
+  border-radius: 999px;
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+  padding-bottom: 0.2rem;
+  padding-top: 0.2rem;
+  font-size: 1.2rem;
+  text-transform: capitalize;
+  color: #A00037;
+  font-weight: 700;
 }
