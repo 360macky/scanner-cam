@@ -277,13 +277,13 @@ function App() {
         {voiceActivated ? (
           <img
             src={VolumeOn}
-            alt="Volume on"
+            alt={t("turn.off.voice")}
             className="h-[2.5rem] lg:h-[1.7rem]"
           />
         ) : (
           <img
             src={VolumeOff}
-            alt="Volume off"
+            alt={t("turn.on.voice")}
             className="h-[2.5rem] lg:h-[1.7rem]"
           />
         )}
