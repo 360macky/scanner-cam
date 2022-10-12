@@ -180,6 +180,7 @@ function App() {
     f();
 
     return () => {};
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voiceUI]);
 
   const detect = async (net: any) => {
@@ -222,6 +223,7 @@ function App() {
       }
     }, 200);
     return () => clearInterval(interval);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [neuralNetwork, webcamLoaded, detections]);
 
   useEffect(() => {
