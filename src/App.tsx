@@ -103,10 +103,16 @@ function App() {
   };
   const [facingMode, setFacingMode] = useState(CAMERA_MODE.USER);
 
-  const createTensorgram = (detections: any) => {
+  type ScannerDetection = {
+    bbox: any,
+    class: string;
+    score: any;
+  }
+
+  const createTensorgram = (detections: ScannerDetection[]) => {
     const tensorgram = document.getElementById("tensorgram") as HTMLDivElement;
     tensorgram.replaceChildren();
-    detections.forEach((detection: any) => {
+    detections.forEach((detection: ScannerDetection) => {
       const [x, y, width, height] = detection["bbox"];
       const text = detection["class"];
 
@@ -261,6 +267,11 @@ function App() {
   };
 
   const handleCameraActivation = () => {
+    // When the camera is about to turn off, also turn off the object-to-voice.
+    if (webcamOn) {
+      voiceActivated = false;
+      setVoiceUI(false);
+    }
     setWebcamOn(!webcamOn);
     setDetections([]);
     const tensorGram = document.getElementById("tensorgram") as HTMLDivElement;
