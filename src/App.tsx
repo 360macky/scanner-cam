@@ -104,10 +104,10 @@ function App() {
   const [facingMode, setFacingMode] = useState(CAMERA_MODE.USER);
 
   type ScannerDetection = {
-    bbox: any,
+    bbox: any;
     class: string;
     score: any;
-  }
+  };
 
   const createTensorgram = (detections: ScannerDetection[]) => {
     const tensorgram = document.getElementById("tensorgram") as HTMLDivElement;
@@ -306,7 +306,7 @@ function App() {
     <div className="app h-full lg:min-h-screen bg-[black] lg:bg-[white] lg:dark:bg-reddark">
       <header
         className={classNames(
-          "bg-[black] lg:bg-reddarker lg:flex lg:justify-center h-[2.6rem] lg:h-auto lg:py-[0.4rem] sticky top-0",
+          "bg-[black] lg:bg-redcandydark lg:dark:bg-reddarker lg:flex lg:justify-center h-[2.6rem] lg:h-auto lg:py-[0.4rem] sticky top-0",
           { hidden: landscape && isMobile }
         )}
       >
@@ -341,7 +341,7 @@ function App() {
             alt={t("welcome.message")}
             className="welcome hidden lg:block"
           />
-          <h2 className="text-[white] text-2xl font-bold">
+          <h2 className="text-redlighter text-2xl lg:text-3xl font-bold">
             {t("welcome.message")}
           </h2>
           <h2 className="text-[white] text-lg">{t("welcome.description")}</h2>
