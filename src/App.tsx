@@ -90,6 +90,7 @@ function App() {
   const { t } = useTranslation();
   const webcamRef = useRef(null);
   const tensorGramRef = useRef<HTMLDivElement>(null);
+  const webcamHoldRef = useRef<HTMLDivElement>(null);
   const { portrait, landscape } = useWindowOrientation();
   const [neuralNetwork, setNeuralNetwork] = useState<any>(null);
   const [webcamLoaded, setWebcamLoaded] = useState<boolean>(false);
@@ -295,7 +296,7 @@ function App() {
     return (
       <button
         title={voiceActivated ? t("turn.on.voice") : t("turn.off.voice")}
-        className="bg-[white] dark:bg-redlight transition hover:scale-110 rounded-full p-[0.8rem]"
+        className="bg-redlighter dark:bg-redlight transition hover:scale-110 rounded-full p-[0.8rem]"
         onClick={handleVoiceActivation}
       >
         {voiceActivated ? (
@@ -347,7 +348,8 @@ function App() {
               "ml-auto lg:h-[480px]": !isMobile,
             }
           )}
-          style={{}}
+          ref={webcamHoldRef}
+          id="webcam-holdref"
         >
           <img
             src={WelcomeLogo}
@@ -391,12 +393,19 @@ function App() {
             width: "auto",
           }}
         ></div>
-        <div className="absolute lg:flex justify-between hidden w-[36rem] pb-[1.25rem] z-10">
+        <div
+          className="absolute lg:flex justify-between hidden pb-[1.25rem] z-10"
+          style={{
+            width: webcamHoldRef.current
+              ? `calc(${webcamHoldRef.current.clientWidth}px - 2.8rem)`
+              : "30rem",
+          }}
+        >
           <ObjectToVoiceButton />
           <button
             onClick={handleCameraActivation}
             title={webcamOn ? t("turn.off.camera") : t("turn.on.camera")}
-            className="bg-[white] dark:bg-redlight transition hover:scale-110 rounded-full p-[0.8rem]"
+            className="bg-redlighter dark:bg-redlight transition hover:scale-110 rounded-full p-[0.8rem]"
           >
             {webcamOn ? (
               <img
