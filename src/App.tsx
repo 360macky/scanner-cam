@@ -147,6 +147,19 @@ function App() {
   };
 
   useEffect(() => {
+    const ifDarkThemeEnabled = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    if (ifDarkThemeEnabled) {
+      const themeColorMetaTag = document.querySelector(
+        `meta[name="theme-color"]`
+      ) as HTMLMetaElement;
+      themeColorMetaTag.content = "#6A0012";
+    }
+    return () => {};
+  }, []);
+
+  useEffect(() => {
     (async () => {
       const network = await cocossd.load();
       setNeuralNetwork(network);
