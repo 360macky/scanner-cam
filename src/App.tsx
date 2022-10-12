@@ -259,7 +259,7 @@ function App() {
 
   const handleVoiceActivation = async () => {
     if (isiOS()) {
-      window.alert(t("error.iphone.voice"));
+      window.alert(t("error.ios.voice"));
       return;
     }
     setVoiceUI(!voiceActivated);

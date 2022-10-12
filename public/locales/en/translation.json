@@ -7,7 +7,7 @@
   "turn.off.camera": "Turn off camera",
   "turn.on.camera": "Turn on camera",
   "revert.camera": "Revert camera",
-  "error.iphone.voice": "ScannerCam: iOS devices do not support object-to-voice unfortunately. But you can use it in Android, Mac or PC.",
+  "error.ios.voice": "ScannerCam: iOS devices do not support object-to-voice unfortunately. But you can use it in Android, Mac or PC.",
   "error.browser.voice": "ScannerCam: Your browser does not support speech synthesis. Try in other one.",
   "objectconnector": "and",
   "person.noun": "a person",
