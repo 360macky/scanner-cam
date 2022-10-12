@@ -180,7 +180,7 @@ function App() {
     f();
 
     return () => {};
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voiceUI]);
 
   const detect = async (net: any) => {
@@ -223,7 +223,7 @@ function App() {
       }
     }, 200);
     return () => clearInterval(interval);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [neuralNetwork, webcamLoaded, detections]);
 
   useEffect(() => {
@@ -371,19 +371,19 @@ function App() {
           <ObjectToVoiceButton />
           <button
             onClick={handleCameraActivation}
-            title="Turn off volume"
+            title={webcamOn ? t("turn.off.camera") : t("turn.on.camera")}
             className="bg-[white] dark:bg-redlight transition hover:scale-110 rounded-full p-[0.8rem]"
           >
             {webcamOn ? (
               <img
                 src={Videocam}
-                alt="Volume off"
+                alt={t("turn.off.camera")}
                 className="h-[2.5rem] lg:h-[1.7rem]"
               />
             ) : (
               <img
                 src={VideocamOff}
-                alt="Volume off"
+                alt={t("turn.on.camera")}
                 className="h-[2.5rem] lg:h-[1.7rem]"
               />
             )}
@@ -401,7 +401,7 @@ function App() {
         )}
       >
         <button
-          title="Turn off volume"
+          title={voiceActivated ? t("turn.off.voice") : t("turn.on.voice")}
           className="bg-redlight rounded-full p-[0.8rem]"
           onClick={handleVoiceActivation}
         >
@@ -412,7 +412,7 @@ function App() {
           )}
         </button>
         <button
-          title="Turn off volume"
+          title={t("revert.camera")}
           className={classNames(
             "transition-all bg-redlight rounded-full p-[0.8rem]",
             {
@@ -424,7 +424,7 @@ function App() {
         >
           <img
             src={CameraSwitch}
-            alt="Volume off"
+            alt={t("revert.camera")}
             className="h-[2.5rem] transition-all duration-700"
             style={{
               transform: `rotateY(${
@@ -434,14 +434,22 @@ function App() {
           />
         </button>
         <button
-          title="Turn off volume"
+          title={t("revert.camera")}
           className="bg-redlight rounded-full p-[0.8rem]"
           onClick={handleCameraActivation}
         >
           {webcamOn ? (
-            <img src={Videocam} alt="Volume off" className="h-[2.5rem]" />
+            <img
+              src={Videocam}
+              alt={t("revert.camera")}
+              className="h-[2.5rem]"
+            />
           ) : (
-            <img src={VideocamOff} alt="Volume off" className="h-[2.5rem]" />
+            <img
+              src={VideocamOff}
+              alt={t("revert.camera")}
+              className="h-[2.5rem]"
+            />
           )}
         </button>
       </footer>
