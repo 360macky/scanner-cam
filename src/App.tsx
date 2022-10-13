@@ -278,6 +278,10 @@ function App() {
       window.alert(t("error.ios.voice"));
       return;
     }
+    if (!webcamOn) {
+      window.alert(t("error.inactive.camera"));
+      return;
+    }
     setVoiceUI(!voiceActivated);
     voiceActivated = !voiceActivated;
   };
@@ -397,7 +401,13 @@ function App() {
             }}
           ></div>
           <div
-            className="absolute lg:flex justify-between hidden pb-[1.25rem] z-10"
+            className={classNames(
+              "transition-all absolute lg:flex justify-between hidden pb-[1.25rem] z-10",
+              {
+                "opacity-0": neuralNetwork === null,
+                "opacity-100": neuralNetwork !== null,
+              }
+            )}
             style={{
               width: webcamHoldRef.current
                 ? `calc(${webcamHoldRef.current.clientWidth}px - 2.8rem)`
