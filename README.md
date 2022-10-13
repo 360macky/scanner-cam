@@ -3,10 +3,10 @@
     src=".github/logo.png"
     align="center"
     width="100"
-    alt="Project name"
-    title="Project name"
+    alt="Scanner Cam"
+    title="Scanner Cam"
   />
-  <h1 align="center">Scanner Cam</h1>
+  <h1 align="center">📸 Scanner Cam 🔊</h1>
 </p>
 
 <p align="center">
