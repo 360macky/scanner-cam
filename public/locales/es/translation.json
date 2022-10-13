@@ -9,6 +9,8 @@
   "revert.camera": "Cambiar cámara",
   "error.ios.voice": "ScannerCam: Desafortunadamente los dispositivos iOS no son compatibles con objeto-a-voz. Pero sí funciona en teléfonos Android, o computadoras Mac o PC.",
   "error.browser.voice": "ScannerCam: Tu navegador no es compatible con la síntesis de voz. Prueba en otro.",
+  "loading.model.message": "Cargando modelo de visión artificial...",
+  "complete.model.message": "Listo. ¡Ya puedes usar ScannerCam!",
   "objectconnector": "y",
   "person.noun": "un persona",
   "bicycle.noun": "una bicicleta",

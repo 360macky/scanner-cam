@@ -163,6 +163,7 @@ function App() {
 
   useEffect(() => {
     (async () => {
+      // Loading
       const network = await cocossd.load();
       setNeuralNetwork(network);
     })();
@@ -423,6 +424,47 @@ function App() {
                 />
               )}
             </button>
+          </div>
+        </div>
+        <div
+          className="hidden lg:flex lg:items-center lg:flex-col ml-auto mr-auto pt-4"
+          style={{
+            width: webcamHoldRef.current
+              ? `calc(${webcamHoldRef.current.clientWidth}px - 2.8rem)`
+              : "30rem",
+          }}
+        >
+          <div
+            className={classNames(
+              "w-full bg-[black] rounded-full h-4 mb-4 transition-all duration-500 delay-1000",
+              {
+                "opacity-0": neuralNetwork !== null,
+              }
+            )}
+          >
+            <div
+              className={classNames(
+                "bg-redcandylight h-4 rounded-full transition-all duration-500",
+                {
+                  "w-[55%]": neuralNetwork === null,
+                  "w-full": neuralNetwork !== null,
+                }
+              )}
+            ></div>
+          </div>
+          <div
+            className={classNames(
+              "transition-all duration-500 delay-[2000ms]",
+              {
+                "opacity-0": neuralNetwork !== null,
+              }
+            )}
+          >
+            <p className="text-[white] text-lg font-medium">
+              {neuralNetwork === null
+                ? t("loading.model.message")
+                : t("complete.model.message")}
+            </p>
           </div>
         </div>
         <footer

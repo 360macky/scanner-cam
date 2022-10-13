@@ -9,6 +9,8 @@
   "revert.camera": "Revert camera",
   "error.ios.voice": "ScannerCam: iOS devices do not support object-to-voice unfortunately. But you can use it in Android, Mac or PC.",
   "error.browser.voice": "ScannerCam: Your browser does not support speech synthesis. Try in other one.",
+  "loading.model.message": "Loading Computer Vision model...",
+  "complete.model.message": "Model loaded Now you can use ScannerCam",
   "objectconnector": "and",
   "person.noun": "a person",
   "bicycle.noun": "a bicycle",
