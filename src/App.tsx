@@ -8,6 +8,7 @@ import "@tensorflow/tfjs-backend-webgl";
 import { isMobile } from "react-device-detect";
 
 import "./App.css";
+import About from "./About";
 
 import Logo from "./assets/logo.png";
 import VolumeOff from "./assets/icons/volume_off.svg";
@@ -317,176 +318,179 @@ function App() {
   };
 
   return (
-    <div className="app h-full lg:min-h-screen bg-[black] lg:bg-[white] lg:dark:bg-reddark">
-      <header
-        className={classNames(
-          "bg-[black] lg:bg-redcandydark lg:dark:bg-reddarker lg:flex lg:justify-center h-[2.6rem] lg:h-auto lg:py-[0.4rem] sticky top-0",
-          { hidden: landscape && isMobile }
-        )}
-      >
-        <img
-          src={Logo}
-          alt="Scanner Cam"
-          className="transition-all hover:rotate-180 hidden lg:block lg:h-[2.5rem]"
-        />
-      </header>
-      <div
-        className={classNames(
-          "rounded-lg bg-[black] lg:bg-opacity-0 flex items-end lg:justify-center lg:w-full lg:pt-[2.6rem]",
-          {
-            "h-full w-[calc(100vw-7rem)]": landscape && isMobile,
-            "justify-center w-full min-h-full items-center h-[calc(100vh-16rem)]":
-              !landscape && isMobile,
-          }
-        )}
-      >
-        <div
+    <>
+      <div className="app h-full lg:min-h-screen bg-[black] lg:bg-[white] lg:dark:bg-reddark">
+        <header
           className={classNames(
-            "Webcam-module flex flex-col justify-center lg:pt-5 w-[640px] bg-[black] rounded-[2rem] ",
-            {
-              "ml-0 h-screen": landscape && isMobile,
-              "ml-auto lg:h-[480px]": !isMobile,
-            }
+            "z-30 bg-[black] lg:bg-redcandydark lg:dark:bg-reddarker lg:flex lg:justify-center h-[2.6rem] lg:h-auto lg:py-[0.4rem] sticky top-0",
+            { hidden: landscape && isMobile }
           )}
-          ref={webcamHoldRef}
-          id="webcam-holdref"
         >
           <img
-            src={WelcomeLogo}
-            alt={t("welcome.message")}
-            className="welcome hidden lg:block"
+            src={Logo}
+            alt="Scanner Cam"
+            className="transition-all hover:rotate-180 hidden lg:block lg:h-[2.5rem]"
           />
-          <h2 className="text-redlighter text-2xl lg:text-3xl font-bold">
-            {t("welcome.message")}
-          </h2>
-          <h2 className="text-[white] text-lg">{t("welcome.description")}</h2>
-        </div>
-        {webcamOn && (
-          <Webcam
-            id="webcam"
-            ref={webcamRef}
-            muted={true}
+        </header>
+        <div
+          className={classNames(
+            "rounded-lg bg-[black] lg:bg-opacity-0 flex items-end lg:justify-center lg:w-full lg:pt-[2.6rem]",
+            {
+              "h-full w-[calc(100vw-7rem)]": landscape && isMobile,
+              "justify-center w-full min-h-full items-center h-[calc(100vh-16rem)]":
+                !landscape && isMobile,
+            }
+          )}
+        >
+          <div
             className={classNames(
-              "Webcam-module rounded-[2rem] lg:h-auto absolute",
+              "Webcam-module flex flex-col justify-center lg:pt-5 w-[640px] bg-[black] rounded-[2rem] ",
               {
-                "h-auto": portrait && isMobile,
-                "h-screen": landscape && isMobile,
-                "ml-0": landscape && isMobile,
-                "ml-auto": !isMobile,
+                "ml-0 h-screen": landscape && isMobile,
+                "ml-auto lg:h-[480px]": !isMobile,
               }
             )}
-            videoConstraints={{
-              ...videoConstraints,
-              facingMode,
-            }}
-          />
-        )}
+            ref={webcamHoldRef}
+            id="webcam-holdref"
+          >
+            <img
+              src={WelcomeLogo}
+              alt={t("welcome.message")}
+              className="welcome hidden lg:block"
+            />
+            <h2 className="text-redlighter text-2xl lg:text-3xl font-bold">
+              {t("welcome.message")}
+            </h2>
+            <h2 className="text-[white] text-lg">{t("welcome.description")}</h2>
+          </div>
+          {webcamOn && (
+            <Webcam
+              id="webcam"
+              ref={webcamRef}
+              muted={true}
+              className={classNames(
+                "Webcam-module rounded-[2rem] lg:h-auto absolute",
+                {
+                  "h-auto": portrait && isMobile,
+                  "h-screen": landscape && isMobile,
+                  "ml-0": landscape && isMobile,
+                  "ml-auto": !isMobile,
+                }
+              )}
+              videoConstraints={{
+                ...videoConstraints,
+                facingMode,
+              }}
+            />
+          )}
 
-        <div
-          id="tensorgram"
-          className={classNames("tensorgram", {
-            "w-[calc(100vw-7rem)]": isMobile,
-          })}
-          ref={tensorGramRef}
-          style={{
-            height: "auto",
-            width: "auto",
-          }}
-        ></div>
-        <div
-          className="absolute lg:flex justify-between hidden pb-[1.25rem] z-10"
-          style={{
-            width: webcamHoldRef.current
-              ? `calc(${webcamHoldRef.current.clientWidth}px - 2.8rem)`
-              : "30rem",
-          }}
+          <div
+            id="tensorgram"
+            className={classNames("tensorgram", {
+              "w-[calc(100vw-7rem)]": isMobile,
+            })}
+            ref={tensorGramRef}
+            style={{
+              height: "auto",
+              width: "auto",
+            }}
+          ></div>
+          <div
+            className="absolute lg:flex justify-between hidden pb-[1.25rem] z-10"
+            style={{
+              width: webcamHoldRef.current
+                ? `calc(${webcamHoldRef.current.clientWidth}px - 2.8rem)`
+                : "30rem",
+            }}
+          >
+            <ObjectToVoiceButton />
+            <button
+              onClick={handleCameraActivation}
+              title={webcamOn ? t("turn.off.camera") : t("turn.on.camera")}
+              className="bg-redlighter dark:bg-redlight transition hover:scale-110 rounded-full p-[0.8rem]"
+            >
+              {webcamOn ? (
+                <img
+                  src={Videocam}
+                  alt={t("turn.off.camera")}
+                  className="h-[2.5rem] lg:h-[1.7rem]"
+                />
+              ) : (
+                <img
+                  src={VideocamOff}
+                  alt={t("turn.on.camera")}
+                  className="h-[2.5rem] lg:h-[1.7rem]"
+                />
+              )}
+            </button>
+          </div>
+        </div>
+        <footer
+          className={classNames(
+            " w-full px-[1.2rem] py-[1rem] fixed left-0 bottom-0 flex justify-between text-white text-2xl bg-redcandydark lg:hidden lg:flex-row z-30",
+            {
+              "w-auto flex-col right-0 left-auto h-full rounded-[2.8rem]":
+                landscape,
+              "rounded-t-[2.8rem] h-auto": !landscape,
+            }
+          )}
         >
-          <ObjectToVoiceButton />
           <button
+            title={voiceActivated ? t("turn.off.voice") : t("turn.on.voice")}
+            className="bg-redlight rounded-full p-[0.8rem]"
+            onClick={handleVoiceActivation}
+          >
+            {voiceActivated ? (
+              <img src={VolumeOn} alt="Volume off" className="h-[2.5rem]" />
+            ) : (
+              <img src={VolumeOff} alt="Volume off" className="h-[2.5rem]" />
+            )}
+          </button>
+          <button
+            title={t("revert.camera")}
+            className={classNames(
+              "transition-all bg-redlight rounded-full p-[0.8rem]",
+              {
+                "opacity-0": !webcamOn,
+                "opacity-100": webcamOn,
+              }
+            )}
+            onClick={handleRevertCameraMode}
+          >
+            <img
+              src={CameraSwitch}
+              alt={t("revert.camera")}
+              className="h-[2.5rem] transition-all duration-700"
+              style={{
+                transform: `rotateY(${
+                  facingMode === CAMERA_MODE.USER ? 180 : 0
+                }deg)`,
+              }}
+            />
+          </button>
+          <button
+            title={t("revert.camera")}
+            className="bg-redlight rounded-full p-[0.8rem]"
             onClick={handleCameraActivation}
-            title={webcamOn ? t("turn.off.camera") : t("turn.on.camera")}
-            className="bg-redlighter dark:bg-redlight transition hover:scale-110 rounded-full p-[0.8rem]"
           >
             {webcamOn ? (
               <img
                 src={Videocam}
-                alt={t("turn.off.camera")}
-                className="h-[2.5rem] lg:h-[1.7rem]"
+                alt={t("revert.camera")}
+                className="h-[2.5rem]"
               />
             ) : (
               <img
                 src={VideocamOff}
-                alt={t("turn.on.camera")}
-                className="h-[2.5rem] lg:h-[1.7rem]"
+                alt={t("revert.camera")}
+                className="h-[2.5rem]"
               />
             )}
           </button>
-        </div>
+        </footer>
       </div>
-      <footer
-        className={classNames(
-          " w-full px-[1.2rem] py-[1rem] fixed left-0 bottom-0 flex justify-between text-white text-2xl bg-redcandydark lg:hidden lg:flex-row z-30",
-          {
-            "w-auto flex-col right-0 left-auto h-full rounded-[2.8rem]":
-              landscape,
-            "rounded-t-[2.8rem] h-auto": !landscape,
-          }
-        )}
-      >
-        <button
-          title={voiceActivated ? t("turn.off.voice") : t("turn.on.voice")}
-          className="bg-redlight rounded-full p-[0.8rem]"
-          onClick={handleVoiceActivation}
-        >
-          {voiceActivated ? (
-            <img src={VolumeOn} alt="Volume off" className="h-[2.5rem]" />
-          ) : (
-            <img src={VolumeOff} alt="Volume off" className="h-[2.5rem]" />
-          )}
-        </button>
-        <button
-          title={t("revert.camera")}
-          className={classNames(
-            "transition-all bg-redlight rounded-full p-[0.8rem]",
-            {
-              "opacity-0": !webcamOn,
-              "opacity-100": webcamOn,
-            }
-          )}
-          onClick={handleRevertCameraMode}
-        >
-          <img
-            src={CameraSwitch}
-            alt={t("revert.camera")}
-            className="h-[2.5rem] transition-all duration-700"
-            style={{
-              transform: `rotateY(${
-                facingMode === CAMERA_MODE.USER ? 180 : 0
-              }deg)`,
-            }}
-          />
-        </button>
-        <button
-          title={t("revert.camera")}
-          className="bg-redlight rounded-full p-[0.8rem]"
-          onClick={handleCameraActivation}
-        >
-          {webcamOn ? (
-            <img
-              src={Videocam}
-              alt={t("revert.camera")}
-              className="h-[2.5rem]"
-            />
-          ) : (
-            <img
-              src={VideocamOff}
-              alt={t("revert.camera")}
-              className="h-[2.5rem]"
-            />
-          )}
-        </button>
-      </footer>
-    </div>
+      <About insideApp />
+    </>
   );
 }
 
