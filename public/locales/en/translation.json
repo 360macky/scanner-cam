@@ -169,5 +169,6 @@
   "scissors": "scissors",
   "teddy bear": "teddy bear",
   "hair drier": "hair drier",
-  "toothbrush": "toothbrush"
+  "toothbrush": "toothbrush",
+  "about.description": "is a web application that contains a camera module (capable of reverting to ambient camera and front camera on mobile devices) whose frames are fed in real time to the COCO-SSD model (COCO stands for Common Objects In Context) (SSD stands for Single Shot MultiBox Detection) of TensorFlow.js machine vision to detect up to 80 object classes.\n\nIt also uses the Speech Synthesis API to talk about objects detected on camera while the option is active. This feature is called object-to-voice.\n\nBoth features have language internationalization support in English and Spanish. The language change happens by the user's preferred language in the browser.\n\nThe interface was built on React v18 and TailwindCSS. It is responsive. And it's also available with a beautiful light and dark mode."
 }
