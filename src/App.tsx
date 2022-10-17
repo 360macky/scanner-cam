@@ -362,7 +362,7 @@ function App() {
             />
             <h2
               className={classNames(
-                "text-redlighter text-2xl lg:text-3xl font-bold transition delay-100",
+                "text-redlighter text-2xl lg:text-3xl font-bold transition delay-300",
                 {
                   "opacity-0": webcamOn,
                   "opacity-100": !webcamOn,
@@ -373,7 +373,7 @@ function App() {
             </h2>
             <h2
               className={classNames(
-                "text-[white] text-lg transition delay-100",
+                "text-[white] text-lg transition delay-300",
                 {
                   "opacity-0": webcamOn,
                   "opacity-100": !webcamOn,
