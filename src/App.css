@@ -2,9 +2,25 @@
   height: 35%;
 }
 
+
 @media (prefers-reduced-motion: no-preference) {
   .welcome {
     animation: App-logo-spin infinite 30s ease;
+  }
+  .message-loading-mobile {
+    animation: App-loading-mobile infinite 3s ease;
+  }
+}
+
+@keyframes App-loading-mobile {
+  0% {
+    width: 80%;
+  }
+  50% {
+    width: 95%;
+  }
+  100% {
+    width: 80%;
   }
 }
 

@@ -363,10 +363,28 @@ function App() {
               alt={t("welcome.message")}
               className="welcome hidden lg:block"
             />
-            <h2 className="text-redlighter text-2xl lg:text-3xl font-bold">
+            <h2
+              className={classNames(
+                "text-redlighter text-2xl lg:text-3xl font-bold transition delay-100",
+                {
+                  "opacity-0": webcamOn,
+                  "opacity-100": !webcamOn,
+                }
+              )}
+            >
               {t("welcome.message")}
             </h2>
-            <h2 className="text-[white] text-lg">{t("welcome.description")}</h2>
+            <h2
+              className={classNames(
+                "text-[white] text-lg transition delay-100",
+                {
+                  "opacity-0": webcamOn,
+                  "opacity-100": !webcamOn,
+                }
+              )}
+            >
+              {t("welcome.description")}
+            </h2>
           </div>
           {webcamOn && (
             <Webcam
@@ -470,7 +488,7 @@ function App() {
               }
             )}
           >
-            <p className="text-[white] text-lg font-medium">
+            <p className="dark:text-[white] text-reddarker text-lg font-medium">
               {neuralNetwork === null
                 ? t("loading.model.message")
                 : t("complete.model.message")}
@@ -487,9 +505,30 @@ function App() {
             }
           )}
         >
+          <div
+            className={classNames(
+              "absolute text-[1rem] font-semibold flex justify-center items-center mt-3 h-8 bg-[white] rounded-full transition",
+              {
+                "opacity-100 message-loading-mobile": neuralNetwork === null,
+                "opacity-0 hidden": neuralNetwork !== null,
+              }
+            )}
+            style={{
+              left: "50%",
+              transform: "translate(-50%, 0)",
+              position: "absolute",
+            }}
+          >
+            {t("loading.model.message")}
+          </div>
           <button
             title={voiceActivated ? t("turn.off.voice") : t("turn.on.voice")}
-            className="bg-redlight rounded-full p-[0.8rem]"
+            className={classNames(
+              "bg-redlight rounded-full p-[0.8rem] transition active:bg-redlighter",
+              {
+                "opacity-0": neuralNetwork === null,
+              }
+            )}
             onClick={handleVoiceActivation}
           >
             {voiceActivated ? (
@@ -501,12 +540,13 @@ function App() {
           <button
             title={t("revert.camera")}
             className={classNames(
-              "transition-all bg-redlight rounded-full p-[0.8rem]",
+              "transition-all bg-redlight rounded-full p-[0.8rem] active:bg-redlighter",
               {
                 "opacity-0": !webcamOn,
                 "opacity-100": webcamOn,
               }
             )}
+            disabled={!webcamOn}
             onClick={handleRevertCameraMode}
           >
             <img
@@ -521,8 +561,13 @@ function App() {
             />
           </button>
           <button
-            title={t("revert.camera")}
-            className="bg-redlight rounded-full p-[0.8rem]"
+            title={webcamOn ? t("turn.off.camera") : t("turn.on.camera")}
+            className={classNames(
+              "bg-redlight rounded-full p-[0.8rem] transition active:bg-redlighter",
+              {
+                "opacity-0": neuralNetwork === null,
+              }
+            )}
             onClick={handleCameraActivation}
           >
             {webcamOn ? (
