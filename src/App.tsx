@@ -29,17 +29,15 @@ let _speechSynth: any;
 let _voices: any;
 const _cache: any = {};
 
-function loadVoicesWhenAvailable(onComplete = () => {}) {
+/**
+ * Load voices when available in browser.
+ * Source: https://stackoverflow.com/a/61963317/10576458
+ */
+function loadWebVoicesWhenAvailable() {
   _speechSynth = window.speechSynthesis;
   const voices = _speechSynth.getVoices();
-
   if (voices.length !== 0) {
     _voices = voices;
-    onComplete();
-  } else {
-    return setTimeout(function () {
-      loadVoicesWhenAvailable(onComplete);
-    }, 100);
   }
 }
 
@@ -54,7 +52,7 @@ function getVoices(locale: any) {
   return _cache[locale];
 }
 
-function playByText(locale: any, text: string, onEnd?: any) {
+function playByText(locale: string, text: string, onEnd?: any) {
   const voices = getVoices(locale);
 
   const utterance = new window.SpeechSynthesisUtterance();
@@ -76,15 +74,13 @@ function playByText(locale: any, text: string, onEnd?: any) {
   _speechSynth.speak(utterance);
 }
 
-loadVoicesWhenAvailable();
-
 let detectionsStorage: string[] = [];
-
-const wait = async (time = 3000) => new Promise((res) => setTimeout(res, time));
 
 let voiceActivated = false;
 
 function App() {
+  const wait = async (time = 3000) =>
+    new Promise((res) => setTimeout(res, time));
   const { t } = useTranslation();
   const webcamRef = useRef(null);
   const tensorGramRef = useRef<HTMLDivElement>(null);
@@ -144,6 +140,11 @@ function App() {
       tensorgram.appendChild(frameDetect);
     });
   };
+
+  useEffect(() => {
+    loadWebVoicesWhenAvailable();
+    return () => {};
+  }, []);
 
   useEffect(() => {
     const ifDarkThemeEnabled = window.matchMedia(
@@ -212,8 +213,7 @@ function App() {
 
       if (!webcamLoaded) {
         setWebcamLoaded(true);
-      }
-      if (webcamLoaded) {
+      } else {
         const cocoDetections = await net.detect(video);
         const parsedDetections = cocoDetections.map(
           (detection: any) => detection.class
