@@ -504,7 +504,7 @@ function App() {
         >
           <div
             className={classNames(
-              "absolute text-[1rem] font-semibold flex justify-center items-center mt-3 h-8 bg-[white] rounded-full transition",
+              "absolute text-[1rem] font-semibold flex justify-center items-center mt-3 h-8 border-2 border-redcandylight text-redlighter bg-[transparent] rounded-full transition",
               {
                 "opacity-100 message-loading-mobile": neuralNetwork === null,
                 "opacity-0 hidden": neuralNetwork !== null,
@@ -529,9 +529,17 @@ function App() {
             onClick={handleVoiceActivation}
           >
             {voiceActivated ? (
-              <img src={VolumeOn} alt={t("turn.on.voice")} className="h-[2.5rem]" />
+              <img
+                src={VolumeOn}
+                alt={t("turn.on.voice")}
+                className="h-[2.5rem]"
+              />
             ) : (
-              <img src={VolumeOff} alt={t("turn.off.voice")} className="h-[2.5rem]" />
+              <img
+                src={VolumeOff}
+                alt={t("turn.off.voice")}
+                className="h-[2.5rem]"
+              />
             )}
           </button>
           <button
