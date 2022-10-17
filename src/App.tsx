@@ -529,9 +529,9 @@ function App() {
             onClick={handleVoiceActivation}
           >
             {voiceActivated ? (
-              <img src={VolumeOn} alt="Volume off" className="h-[2.5rem]" />
+              <img src={VolumeOn} alt={t("turn.on.voice")} className="h-[2.5rem]" />
             ) : (
-              <img src={VolumeOff} alt="Volume off" className="h-[2.5rem]" />
+              <img src={VolumeOff} alt={t("turn.off.voice")} className="h-[2.5rem]" />
             )}
           </button>
           <button
