@@ -76,14 +76,11 @@ function playByText(locale: any, text: string, onEnd?: any) {
   _speechSynth.speak(utterance);
 }
 
-loadVoicesWhenAvailable(function () {
-  console.log("voices loaded");
-});
+loadVoicesWhenAvailable();
 
 let detectionsStorage: string[] = [];
 
-const waitUpdate = async (time = 3000) =>
-  new Promise((res) => setTimeout(res, time));
+const wait = async (time = 3000) => new Promise((res) => setTimeout(res, time));
 
 let voiceActivated = false;
 
@@ -181,7 +178,7 @@ function App() {
   useEffect(() => {
     let f = async () => {
       while (voiceActivated) {
-        await waitUpdate(
+        await wait(
           detectionsStorage.length === 1
             ? 5000
             : detectionsStorage.length * 3000
