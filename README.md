@@ -17,7 +17,7 @@
 
 ## 🛠 Development
 
-**ScannerCam** is a web application that contains a camera module (capable of reverting to ambient camera and front camera on mobile devices) whose frames are fed in real time to the COCO-SSD model (COCO stands for Common Objects In Context) (SSD stands for Single Shot MultiBox Detection) of TensorFlow.js machine vision to detect up to 80 object classes.
+**ScannerCam** is a web application that contains a camera module (capable of reverting to environment camera and front camera on mobile devices) whose frames are fed in real time to the COCO-SSD model (COCO stands for Common Objects In Context) (SSD stands for Single Shot MultiBox Detection) of TensorFlow.js computer vision to detect up to 80 object classes.
 
 It also uses the Speech Synthesis API to talk about objects detected on camera while the option is active. This feature is called object-to-voice.
 
@@ -42,4 +42,5 @@ Do you would like to contribute? Do you want to be the author of a new feature? 
 ## 📃 License
 
 Distributed under the MIT License.
+
 See [`LICENSE`](./LICENSE) for more information.
