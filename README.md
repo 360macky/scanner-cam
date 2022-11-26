@@ -15,6 +15,10 @@
 
 ![Demo of ScannerCam](./.github/demo.gif)
 
+<p align="center">
+  <a href="https://scanner.cam">www.scanner.cam</a>
+</p>
+
 ## 🛠 Development
 
 **ScannerCam** is a web application that contains a camera module (capable of reverting to environment camera and front camera on mobile devices) whose frames are fed in real time to the COCO-SSD model (COCO stands for [Common Objects In Context](https://cocodataset.org/#home)) (SSD stands for [Single Shot MultiBox Detection](https://arxiv.org/abs/1512.02325)) of [TensorFlow.js](https://www.tensorflow.org/js) computer vision to detect up to 80 object classes.
