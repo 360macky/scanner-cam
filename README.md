@@ -34,6 +34,8 @@ Both features have language internationalization support in English and Spanish.
 
 The interface was built on [React v18](https://reactjs.org/blog/2022/03/29/react-v18.html) and [TailwindCSS](https://tailwindcss.com). It is responsive. And it's also available with a beautiful light and dark mode.
 
+Once the webpage is loaded with the model, ScannerCam will work even offline.
+
 ## 🎨 UI Design
 The colors chosen to paint Scanner Cam are shades of red that change depending on the user's preference in dark mode and light mode.
 
