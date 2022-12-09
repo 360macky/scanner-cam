@@ -161,7 +161,6 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      // Loading
       const network = await cocossd.load();
       setNeuralNetwork(network);
     })();
@@ -221,8 +220,7 @@ function App() {
         const translatedDetections = cocoDetections.map((detection: any) => {
           return {
             bbox: detection.bbox,
-            class: t(detection.class),
-            score: detection.score,
+            class: t(detection.class)
           };
         });
         if (detections.join() === parsedDetections.join()) {
