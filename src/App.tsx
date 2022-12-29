@@ -78,6 +78,8 @@ let detectionsStorage: string[] = [];
 
 let voiceActivated = false;
 
+type BROWSER_MODEL_STATUS = "START" | "LOADING" | "READY" | "ERROR";
+
 function App() {
   const wait = async (time = 3000) =>
     new Promise((res) => setTimeout(res, time));
@@ -87,6 +89,7 @@ function App() {
   const webcamHoldRef = useRef<HTMLDivElement>(null);
   const { portrait, landscape } = useWindowOrientation();
   const [neuralNetwork, setNeuralNetwork] = useState<any>(null);
+  const [modelStatus, setModelStatus] = useState<BROWSER_MODEL_STATUS>("START");
   const [webcamLoaded, setWebcamLoaded] = useState<boolean>(false);
 
   const [detections, setDetections] = useState<any[]>([]);
@@ -159,14 +162,31 @@ function App() {
     return () => {};
   }, []);
 
-  useEffect(() => {
-    (async () => {
+  /**
+   * @name loadNeuralNetwork
+   * @description Load neural network model.
+   * @returns {Promise<void>}
+   */
+  const loadNeuralNetwork = useCallback(async () => {
+    if (!navigator.onLine) {
+      alert("Navegador sin internet");
+      return;
+    }
+    try {
+      setModelStatus("LOADING");
       const network = await cocossd.load();
       setNeuralNetwork(network);
-    })();
-    return () => {};
+      setModelStatus("READY");
+    } catch (error) {
+      setModelStatus("ERROR");
+      // TODO: Handle error.
+    }
   }, []);
 
+  /**
+   * @name handleRevertCameraMode
+   * @description Revert camera mode.
+   */
   const handleRevertCameraMode = useCallback(() => {
     setFacingMode((prevState) =>
       prevState === CAMERA_MODE.USER
@@ -202,6 +222,11 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voiceUI]);
 
+  /**
+   * @name detect
+   * @description Detect objects in the video stream.
+   * @param {any} net
+   */
   const detect = async (net: any) => {
     if (
       typeof webcamRef.current !== "undefined" &&
@@ -220,7 +245,7 @@ function App() {
         const translatedDetections = cocoDetections.map((detection: any) => {
           return {
             bbox: detection.bbox,
-            class: t(detection.class)
+            class: t(detection.class),
           };
         });
         if (detections.join() === parsedDetections.join()) {
@@ -255,7 +280,13 @@ function App() {
     return () => {};
   }, [webcamLoaded, webcamRef, portrait, landscape]);
 
-  const parseObjects = (objects: string[]) => {
+  /**
+   * @name parseObjects
+   * @description Parse objects to string.
+   * @param {string[]} objects
+   * @returns {string}
+   */
+  const parseObjects = (objects: string[]): string => {
     let translatedObjects = objects.map((object) => t(`${object}.noun`));
     if (translatedObjects.length === 1) {
       return translatedObjects.toString();
@@ -268,6 +299,11 @@ function App() {
     }
   };
 
+  /**
+   * @name handleVoiceActivation
+   * @description Handle voice activation. If the device is iOS, it will show an error alert.
+   * @returns {void}
+   */
   const handleVoiceActivation = async () => {
     if (isiOS()) {
       window.alert(t("error.ios.voice"));
@@ -281,7 +317,12 @@ function App() {
     voiceActivated = !voiceActivated;
   };
 
-  const handleCameraActivation = () => {
+  /**
+   * @name handleCameraActivation
+   * @description Handle camera activation.
+   * @returns {void}
+   */
+  const handleCameraActivation = (): void => {
     // When the camera is about to turn off, also turn off the object-to-voice.
     if (webcamOn) {
       voiceActivated = false;
@@ -329,6 +370,7 @@ function App() {
           <img
             src={Logo}
             alt="Scanner Cam"
+            title="Scanner Cam"
             className="transition-all hover:rotate-180 hidden lg:block lg:h-[2.5rem]"
           />
         </header>
@@ -344,7 +386,7 @@ function App() {
         >
           <div
             className={classNames(
-              "Webcam-module flex flex-col justify-center lg:pt-5 w-[640px] bg-[black] rounded-[2rem] ",
+              "Webcam-module flex flex-col justify-center lg:pt-5 w-[640px] bg-[black] rounded-[2rem] gap-y-3",
               {
                 "ml-0 h-screen": landscape && isMobile,
                 "ml-auto lg:h-[480px]": !isMobile,
@@ -380,6 +422,17 @@ function App() {
             >
               {t("welcome.description")}
             </h2>
+            <button
+              className={classNames(
+                "bg-redlighter hover:brightness-110 active:ring ring-redlighter/60 w-auto self-center rounded-lg px-4 py-2 cursor-pointer transition text-[1.2rem] font-semibold",
+                {
+                  "opacity-0": modelStatus === "READY",
+                }
+              )}
+              onClick={() => loadNeuralNetwork()}
+            >
+              {t("start.app")}
+            </button>
           </div>
           {webcamOn && (
             <Webcam
@@ -417,8 +470,8 @@ function App() {
             className={classNames(
               "transition-all absolute lg:flex justify-between hidden pb-[1.25rem] z-10",
               {
-                "opacity-0": neuralNetwork === null,
-                "opacity-100": neuralNetwork !== null,
+                "opacity-0": modelStatus === "START",
+                "opacity-100": neuralNetwork === "READY",
               }
             )}
             style={{
@@ -461,7 +514,7 @@ function App() {
             className={classNames(
               "w-full bg-[black] rounded-full h-4 mb-4 transition-all duration-500 delay-1000",
               {
-                "opacity-0": neuralNetwork !== null,
+                "opacity-0": modelStatus === "READY",
               }
             )}
           >
@@ -469,8 +522,9 @@ function App() {
               className={classNames(
                 "bg-redcandylight h-4 rounded-full transition-all duration-500",
                 {
-                  "w-[55%]": neuralNetwork === null,
-                  "w-full": neuralNetwork !== null,
+                  "w-[0%]": modelStatus === "LOADING",
+                  "w-full": modelStatus === "READY",
+                  "opacity-0": modelStatus === "START",
                 }
               )}
             ></div>
@@ -479,40 +533,36 @@ function App() {
             className={classNames(
               "transition-all duration-500 delay-[2000ms]",
               {
-                "opacity-0": neuralNetwork !== null,
+                "opacity-0": modelStatus === "READY",
               }
             )}
           >
             <p className="dark:text-[white] text-reddarker text-lg font-medium">
-              {neuralNetwork === null
-                ? t("loading.model.message")
-                : t("complete.model.message")}
+              {modelStatus === "LOADING" && t("loading.model.message")}
+              {modelStatus === "READY" && t("complete.model.message")}
             </p>
           </div>
         </div>
         <footer
           className={classNames(
-            " w-full px-[1.2rem] py-[1rem] fixed left-0 bottom-0 flex justify-between text-white text-2xl bg-redcandydark lg:hidden lg:flex-row z-30",
+            "w-full px-[1.2rem] py-[1rem] fixed left-0 bottom-0 flex text-white text-2xl bg-redcandydark lg:hidden lg:flex-row z-30",
             {
               "w-auto flex-col right-0 left-auto h-full rounded-[2.8rem]":
                 landscape,
               "rounded-t-[2.8rem] h-auto": !landscape,
+              "justify-between": modelStatus === "READY",
+              "justify-center":
+                modelStatus === "START" || modelStatus === "LOADING",
             }
           )}
         >
           <div
             className={classNames(
-              "absolute text-[1rem] font-semibold flex justify-center items-center mt-3 h-8 border-2 border-redcandylight text-redlighter bg-[transparent] rounded-full transition",
+              "text-[1rem] font-semibold flex justify-center items-center mt-3 h-8 absolute text-[white] bg-[transparent] text-center",
               {
-                "opacity-100 message-loading-mobile": neuralNetwork === null,
-                "opacity-0 hidden": neuralNetwork !== null,
+                "opacity-0": modelStatus === "READY",
               }
             )}
-            style={{
-              left: "50%",
-              transform: "translate(-50%, 0)",
-              position: "absolute",
-            }}
           >
             {t("loading.model.message")}
           </div>
@@ -521,7 +571,8 @@ function App() {
             className={classNames(
               "bg-redlight rounded-full p-[0.8rem] transition active:bg-redlighter",
               {
-                "opacity-0": neuralNetwork === null,
+                "opacity-0":
+                  modelStatus === "START" || modelStatus === "LOADING",
               }
             )}
             onClick={handleVoiceActivation}
@@ -568,7 +619,8 @@ function App() {
             className={classNames(
               "bg-redlight rounded-full p-[0.8rem] transition active:bg-redlighter",
               {
-                "opacity-0": neuralNetwork === null,
+                "opacity-0":
+                  modelStatus === "START" || modelStatus === "LOADING",
               }
             )}
             onClick={handleCameraActivation}
