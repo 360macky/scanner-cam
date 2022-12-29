@@ -12,6 +12,7 @@
   "error.inactive.camera": "ScannerCam: Primero enciende tu cámara.",
   "loading.model.message": "Cargando modelo de visión artificial...",
   "complete.model.message": "Listo. ¡Ya puedes usar ScannerCam!",
+  "start.app": "Iniciar app",
   "objectconnector": "y",
   "person.noun": "un persona",
   "bicycle.noun": "una bicicleta",
