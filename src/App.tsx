@@ -564,7 +564,9 @@ function App() {
               }
             )}
           >
-            {t("loading.model.message")}
+            {
+              modelStatus === "LOADING" && t("loading.model.message")
+            }
           </div>
           <button
             title={voiceActivated ? t("turn.off.voice") : t("turn.on.voice")}
