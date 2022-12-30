@@ -1,18 +1,17 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '@playwright/test'
 
 test('Home has basic information about ScannerCam', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/')
 
   // Check that the page title is correct
-  expect(await page.title()).toBe('ScannerCam');
+  expect(await page.title()).toBe('ScannerCam')
 
   // Check that the page has a h2 element with the text "Welcome to ScannerCam"
-  expect(await page.textContent('h2')).toBe('Welcome to ScannerCam');
+  expect(await page.textContent('h2')).toBe('Welcome to ScannerCam')
 
   // Check that the page has a p element with the text "Turn on your camera and our AI will recognize objects in display."
-  expect(await page.textContent('p')).toBe('Turn on your camera and our AI will recognize objects in display.');
+  expect(await page.textContent('p')).toBe('Turn on your camera and our AI will recognize objects in display.')
 
   // Check that the page has a button element with the text "Start app"
-  expect(await page.textContent('button')).toBe('Start app');
-
-});
+  expect(await page.textContent('button')).toBe('Start app')
+})
