@@ -122,6 +122,11 @@ function App () {
     score: any
   }
 
+  /**
+   * @name createTensorgram
+   * @description Create tensorgram from detections array.
+   * @param {ScannerDetection[]} detections
+   */
   const createTensorgram = (detections: ScannerDetection[]) => {
     const tensorgram = document.getElementById('tensorgram') as HTMLDivElement
     tensorgram.replaceChildren()
