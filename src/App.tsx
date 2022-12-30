@@ -411,7 +411,7 @@ function App() {
             >
               {t("welcome.message")}
             </h2>
-            <h2
+            <p
               className={classNames(
                 "text-[white] text-lg transition delay-300",
                 {
@@ -421,12 +421,12 @@ function App() {
               )}
             >
               {t("welcome.description")}
-            </h2>
+            </p>
             <button
               className={classNames(
                 "bg-redlighter hover:brightness-110 active:ring ring-redlighter/60 w-auto self-center rounded-lg px-4 py-2 cursor-pointer transition text-[1.2rem] font-semibold",
                 {
-                  "opacity-0": modelStatus === "READY",
+                  "hidden": modelStatus === "READY",
                 }
               )}
               onClick={() => loadNeuralNetwork()}
@@ -517,6 +517,10 @@ function App() {
                 "opacity-0": modelStatus === "READY",
               }
             )}
+            role="progressbar"
+            aria-valuenow={modelStatus === "LOADING" ? 0 : 100}
+            aria-valuemin={0}
+            aria-valuemax={100}
           >
             <div
               className={classNames(
@@ -564,9 +568,11 @@ function App() {
               }
             )}
           >
-            {
-              modelStatus === "LOADING" && t("loading.model.message")
-            }
+            <p>
+              {
+                modelStatus === "LOADING" && t("loading.model.message")
+              }
+            </p>
           </div>
           <button
             title={voiceActivated ? t("turn.off.voice") : t("turn.on.voice")}
