@@ -37,6 +37,11 @@ The interface was built on [React v18](https://reactjs.org/blog/2022/03/29/react
 Once the webpage is loaded with the model, ScannerCam will work even offline.
 
 ## 🎨 UI Design
+
+ScannerCam has a simple and clean design. It is based on the [Material Design](https://material.io/design) guidelines.
+
+The library used to build the interface is [TailwindCSS](https://tailwindcss.com). It is a utility-first CSS framework for rapidly building custom user interfaces.
+
 The colors chosen to paint Scanner Cam are shades of red that change depending on the user's preference in dark mode and light mode.
 
 - Red darker: `#6A0012`
