@@ -30,7 +30,8 @@ let _voices: any
 const _cache: any = {}
 
 /**
- * Load voices when available in browser.
+ * @name loadWebVoicesWhenAvailable
+ * @description Load voices when available in browser.
  * Source: https://stackoverflow.com/a/61963317/10576458
  */
 function loadWebVoicesWhenAvailable () {
@@ -41,6 +42,11 @@ function loadWebVoicesWhenAvailable () {
   }
 }
 
+/**
+ * @name getVoices
+ * @description Get voices by locale.
+ * @param {string} locale
+ */
 function getVoices (locale: any) {
   if (!_speechSynth) {
     window.alert('Browser does not support speech synthesis')
@@ -52,6 +58,13 @@ function getVoices (locale: any) {
   return _cache[locale]
 }
 
+/**
+ * @name playByText
+ * @description Play text by locale.
+ * @param {string} locale
+ * @param {string} text
+ * @param {any} onEnd
+ */
 function playByText (locale: string, text: string, onEnd?: any) {
   const voices = getVoices(locale)
 
