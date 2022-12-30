@@ -61,6 +61,10 @@ More than 10 assertions are made to ensure that the app is working correctly.
 
 The tests are located in the [`tests`](./tests) folder.
 
+### 🛩 Deployment
+
+ScannerCam is deployed on [Vercel](https://vercel.com). Vercel is a cloud platform for static sites, hybrid apps, and Serverless Functions.
+
 ## 🎨 UI Design
 
 ScannerCam has a simple and clean design. It is based on the [Material Design](https://material.io/design) guidelines.
