@@ -35,6 +35,12 @@ These are the main technologies used to build ScannerCam:
 
 > "We present a method for detecting objects in images using a single deep neural network. Our approach, named SSD, discretizes the output space of bounding boxes into a set of default boxes over different aspect ratios and scales per feature map location." From the [SSD: Single Shot MultiBox Detector](https://arxiv.org/abs/1512.02325) paper.
 
+When the user clicks the button "Start app", the app requests the Machine Learning Model from the TensorFlow.js Hub. The TensorFlow.js Hub then responds by sending the model's architecture and weights to the app.
+
+Once the model is ready, it is not necessary to download it again. The model is stored in the browser's cache. This way, the app can work offline after the first load.
+
+If you want to know more about the COCO-SSD model, you can read the [TensorFlow.js documentation](https://www.tensorflow.org/js/models).
+
 ### 🎙 Speech Synthesis
 
 It also uses the [Speech Synthesis API](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis) to talk about objects detected on camera while the option is active. This feature is called object-to-voice.
@@ -43,11 +49,17 @@ Both features have language internationalization support in English and Spanish.
 
 ### 🪐 User Interface
 
-The interface was built on [React v18](https://reactjs.org/blog/2022/03/29/react-v18.html) and [TailwindCSS](https://tailwindcss.com).
+ScannerCam UI was built on [React v18](https://reactjs.org/blog/2022/03/29/react-v18.html) with TypeScript.
 
-It is responsive. And it's also available with a beautiful light and dark mode.
+It is responsive. And it's also available with a beautiful light and dark mode based on the user's preferred color scheme in the browser.
 
-Once the webpage is loaded with the model, ScannerCam will work even offline.
+### ✅ Testing
+
+ScannerCam is continuously tested with [Playwright](https://playwright.dev/). Playwright is a Node.js library to automate Chromium, Firefox, and WebKit with a single API.
+
+More than 10 assertions are made to ensure that the app is working correctly.
+
+The tests are located in the [`tests`](./tests) folder.
 
 ## 🎨 UI Design
 
