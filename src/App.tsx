@@ -84,7 +84,9 @@ function App () {
   const wait = async (time = 3000) =>
     await new Promise((res) => setTimeout(res, time))
   const { t } = useTranslation()
-  const webcamRef = useRef(null)
+
+  const webcamRef = useRef<Webcam>(null)
+
   const tensorGramRef = useRef<HTMLDivElement>(null)
   const webcamHoldRef = useRef<HTMLDivElement>(null)
   const { portrait, landscape } = useWindowOrientation()
@@ -229,30 +231,31 @@ function App () {
   const detect = async (net: any) => {
     if (
       typeof webcamRef.current !== 'undefined' &&
-      webcamRef.current !== null &&
-      webcamRef.current.video.readyState === 4
-    ) {
-      const video = webcamRef.current.video as HTMLVideoElement
-
-      if (!webcamLoaded) {
-        setWebcamLoaded(true)
-      } else {
-        const cocoDetections = await net.detect(video)
-        const parsedDetections = cocoDetections.map(
-          (detection: any) => detection.class
-        )
-        const translatedDetections = cocoDetections.map((detection: any) => {
-          return {
-            bbox: detection.bbox,
-            class: t(detection.class)
+      webcamRef.current !== null) {
+      if (webcamRef.current.video) {
+        if (webcamRef.current.video.readyState === 4) {
+          const video = webcamRef.current.video
+          if (!webcamLoaded) {
+            setWebcamLoaded(true)
+          } else {
+            const cocoDetections = await net.detect(video)
+            const parsedDetections = cocoDetections.map(
+              (detection: any) => detection.class
+            )
+            const translatedDetections = cocoDetections.map((detection: any) => {
+              return {
+                bbox: detection.bbox,
+                class: t(detection.class)
+              }
+            })
+            if (detections.join() === parsedDetections.join()) {
+              detectionsStorage = []
+            } else {
+              detectionsStorage = parsedDetections
+            }
+            createTensorgram(translatedDetections)
           }
-        })
-        if (detections.join() === parsedDetections.join()) {
-          detectionsStorage = []
-        } else {
-          detectionsStorage = parsedDetections
         }
-        createTensorgram(translatedDetections)
       }
     }
   }
