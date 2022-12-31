@@ -20,7 +20,7 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test
         env:
-          BASE_URL: ${{ github.event.deployment_status.target_url }}
+          BASE_URL: "https://www.scanner.cam"
       - uses: actions/upload-artifact@v3
         if: always()
         with:
