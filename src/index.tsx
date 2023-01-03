@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import App from './App'
 import About from './About'
+import Footer from './Footer'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import reportWebVitals from './reportWebVitals'
 
@@ -20,6 +21,7 @@ root.render(
         <Route path="/" element={<App />} />
         <Route path="/about" element={<About insideApp={false} />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   </Suspense>
 )
