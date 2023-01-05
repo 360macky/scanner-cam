@@ -54,6 +54,18 @@ Once the model is ready, it is not necessary to download it again. The model is 
 
 If you want to know more about the COCO-SSD model, you can read the [TensorFlow.js documentation](https://www.tensorflow.org/js/models).
 
+```mermaid
+graph TD
+    A(Tensorgram mechanism) --> B[Get the frames from the HTML video element]
+    B --> |Sent to the TensorFlow.js model|C[(COCO SSD Detection Model)]
+    C --> |Returns|D([Array of detections])
+    D --> E[\Get classes detected/]
+    E --> |Update useState|G[(Detections Storage)]
+    D --> H[Create Diagrams with createTensorgram]
+    H --> I[Create an overlay element on top of the React-Webcam component]
+    I --> J[Paint boxes with text in the overlay element created]
+```
+
 ### 🎙 Speech Synthesis
 
 It also uses the [Speech Synthesis API](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis) to talk about objects detected on camera while the option is active. This feature is called object-to-voice.
