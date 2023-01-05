@@ -10,13 +10,15 @@
 </p>
 
 <p align="center">
-  📸 Camera object recognizer with object-to-voice integrated. 🤖
+  📸 Camera object recognizer with object-to-voice integrated. 🤖<br />
+  <br />
+  ✅ This project has diagrams to help you understand how it works! 📌<br />
 </p>
 
 ![Demo of ScannerCam](./.github/demo.gif)
 
 <p align="center">
-  <a href="https://scanner.cam">www.scanner.cam</a>
+  <a href="https://scanner.cam">www.scanner.cam</a><br />
 </p>
 
 ## 🤖 Concept
@@ -24,6 +26,17 @@
 ScannerCam is a web application that uses the [TensorFlow.js](https://www.tensorflow.org/js) computer vision library to detect objects in real time with the camera of a mobile device or a computer.
 
 ## 🛠 Core Development
+
+```mermaid
+graph TD
+    A([User clicks Start app]) -->|Downloading TensorFlow model...| B[Model downloaded]
+    B --> |App can work offline from here...|C[Camera button available]
+    C --> D([User clicks on camera button])
+    D --> E[Is camera access allowed?]
+    E --> |No|C
+    E --> |Yes|G[React-Webcam component rendered]
+    G --> H[Tensorgram mechanism is started...]
+```
 
 These are the main technologies used to build ScannerCam:
 
