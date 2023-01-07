@@ -491,8 +491,7 @@ function App () {
             className={classNames(
               'transition-all absolute lg:flex justify-between hidden pb-[1.25rem] z-10',
               {
-                'opacity-0': modelStatus === 'START',
-                'opacity-100': neuralNetwork === 'READY'
+                'lg:hidden': modelStatus !== 'READY'
               }
             )}
             style={{
