@@ -563,7 +563,7 @@ function App () {
               }
             )}
           >
-            <p className="dark:text-[white] text-reddarker text-lg font-medium">
+            <p className="dark:text-[white] text-reddarker text-lg font-medium" role="status">
               {modelStatus === 'LOADING' && t('loading.model.message')}
               {modelStatus === 'READY' && t('complete.model.message')}
             </p>
