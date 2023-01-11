@@ -384,16 +384,29 @@ function App () {
       <div className="app h-full lg:min-h-screen bg-redblack lg:bg-[white] lg:dark:bg-reddark">
         <header
           className={classNames(
-            'z-30 bg-redblack lg:bg-redcandydark lg:dark:bg-reddarker lg:flex lg:justify-center h-[2.6rem] lg:h-auto lg:py-[0.4rem] sticky top-0',
+            'z-30 bg-redblack lg:bg-redcandydark lg:dark:bg-reddarker hidden lg:flex lg:justify-center h-[2.6rem] lg:h-auto lg:py-[0.4rem] sticky top-0',
             { hidden: landscape && isMobile }
           )}
         >
-          <img
-            src={Logo}
-            alt="Scanner Cam"
-            title="Scanner Cam"
-            className="transition-all hover:rotate-180 hidden lg:block lg:h-[2.5rem]"
-          />
+          <div className="flex justify-between items-center w-[1024px]">
+            <div>
+              <img
+                src={Logo}
+                alt="Scanner Cam"
+                title="Scanner Cam"
+                className="transition-all hover:rotate-180 hidden lg:block lg:h-[2.5rem]"
+              />
+            </div>
+            <nav className="navbar">
+              <ul>
+                <li>
+                  <a className="text-redlighter px-2 py-2 border-redlighter border-[1px] rounded-lg hover:bg-reddark active:ring ring-redlighter/60" href="https://twitter.com/intent/tweet?text=I%20love%20Scanner.cam!%20%23ScannerCam%20%40360macky" target={'_blank'} rel="noreferrer">
+                    {t('nav.share.twitter')}
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </header>
         <div
           className={classNames(

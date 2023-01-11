@@ -16,6 +16,7 @@
   "error.inactive.camera": "ScannerCam: First turn on your camera.",
   "loading.model.message": "Loading Computer Vision model...",
   "complete.model.message": "Model loaded Now you can use ScannerCam",
+  "nav.share.twitter": "Share on Twitter",
   "start.app": "Start app",
   "objectconnector": "and",
   "person.noun": "a person",
