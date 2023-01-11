@@ -1,7 +1,10 @@
+:root {
+  --pink: #FFC2EF;
+}
+
 .welcome {
   height: 35%;
 }
-
 
 @media (prefers-reduced-motion: no-preference) {
   .welcome {
@@ -64,7 +67,7 @@
 }
 
 .tensorframe {
-  border: 0.4rem solid #FFC2EF;
+  border: 0.4rem solid var(--pink);
   border-radius: 1.4rem;
 }
 
@@ -78,7 +81,7 @@
 }
 
 .tensorframe p {
-  background-color: #FFC2EF;
+  background-color: var(--pink);
   border-radius: 999px;
   padding-left: 0.8rem;
   padding-right: 0.8rem;
