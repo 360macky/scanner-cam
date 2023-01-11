@@ -13,7 +13,8 @@ module.exports = {
       redcandydark: '#D81B60',
       redcandylight: '#FF5C8D',
       redlight: '#FF90BD',
-      redlighter: '#FFC2EF'
+      redlighter: '#FFC2EF',
+      redblack: '#141414'
     }
   },
   plugins: []

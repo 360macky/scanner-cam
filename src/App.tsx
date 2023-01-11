@@ -381,10 +381,10 @@ function App () {
 
   return (
     <>
-      <div className="app h-full lg:min-h-screen bg-[black] lg:bg-[white] lg:dark:bg-reddark">
+      <div className="app h-full lg:min-h-screen bg-redblack lg:bg-[white] lg:dark:bg-reddark">
         <header
           className={classNames(
-            'z-30 bg-[black] lg:bg-redcandydark lg:dark:bg-reddarker lg:flex lg:justify-center h-[2.6rem] lg:h-auto lg:py-[0.4rem] sticky top-0',
+            'z-30 bg-redblack lg:bg-redcandydark lg:dark:bg-reddarker lg:flex lg:justify-center h-[2.6rem] lg:h-auto lg:py-[0.4rem] sticky top-0',
             { hidden: landscape && isMobile }
           )}
         >
@@ -397,7 +397,7 @@ function App () {
         </header>
         <div
           className={classNames(
-            'rounded-lg bg-[black] lg:bg-opacity-0 flex items-end lg:justify-center lg:w-full lg:pt-[2.6rem]',
+            'rounded-lg bg-redblack lg:bg-opacity-0 flex items-end lg:justify-center lg:w-full lg:pt-[2.6rem]',
             {
               'h-full w-[calc(100vw-7rem)]': landscape && isMobile,
               'justify-center w-full min-h-full items-center h-[calc(100vh-16rem)]':
@@ -407,7 +407,7 @@ function App () {
         >
           <div
             className={classNames(
-              'Webcam-module flex flex-col justify-center lg:pt-5 w-[640px] bg-[black] rounded-[2rem] gap-y-3',
+              'Webcam-module flex flex-col justify-center lg:pt-5 w-[640px] bg-redblack rounded-[2rem] gap-y-3',
               {
                 'ml-0 h-screen': landscape && isMobile,
                 'ml-auto lg:h-[480px]': !isMobile
@@ -534,7 +534,7 @@ function App () {
         >
           <div
             className={classNames(
-              'w-full bg-[black] rounded-full h-4 mb-4 transition-all duration-500 delay-1000',
+              'w-full bg-redblack rounded-full h-4 mb-4 transition-all duration-500 delay-1000',
               {
                 'opacity-0': modelStatus === 'READY'
               }
