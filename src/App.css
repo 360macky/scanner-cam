@@ -30,7 +30,7 @@
     opacity: 0;
   }
   10% {
-    opacity: 0;
+    opacity: 20;
   }
   20% {
     opacity: 100;
@@ -55,7 +55,6 @@
   right: 0;
   text-align: center;
 }
-
 
 .tensorgram {
   position: absolute;
