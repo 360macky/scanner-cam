@@ -556,6 +556,11 @@ function App () {
               }
             )}
             role="progressbar"
+            aria-label={
+              modelStatus === 'LOADING'
+                ? t('loading.model.message')
+                : t('complete.model.message')
+            }
             aria-valuenow={modelStatus === 'LOADING' ? 0 : 100}
             aria-valuemin={0}
             aria-valuemax={100}
