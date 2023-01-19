@@ -19,7 +19,7 @@ function About ({ insideApp }: AboutProps) {
     >
       <div className="max-w-[1020px] bg-[white] dark:text-[white] dark:bg-reddark text-xl rounded-2xl p-8 flex flex-col gap-y-4 lg:flex-row">
         <div className="lg:w-[1000px] p-4 lg:flex justify-center items-center">
-          <img src={Smartphone} />
+          <img src={Smartphone} alt="Preview of ScannerCam on smartphone" />
         </div>
         <article className="p-8">
           <h2 className="text-3xl text-left font-extrabold mb-3">{t('about')} ScannerCam</h2>
