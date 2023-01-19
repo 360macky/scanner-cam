@@ -463,9 +463,12 @@ function App () {
                   hidden: modelStatus === 'READY'
                 }
               )}
+              disabled={modelStatus === 'LOADING'}
               onClick={async () => await loadNeuralNetwork()}
             >
-              {t('start.app')}
+              {
+                modelStatus === 'LOADING' ? t('starting.app') : t('start.app')
+              }
             </button>
           </div>
           {webcamOn && (
