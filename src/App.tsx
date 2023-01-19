@@ -400,7 +400,7 @@ function App () {
             <nav className="navbar">
               <ul>
                 <li>
-                  <a className="text-redlighter px-2 py-2 border-redlighter border-[1px] rounded-lg hover:bg-reddark active:ring ring-redlighter/60" href="https://twitter.com/intent/tweet?text=I%20love%20Scanner.cam!%20%23ScannerCam%20%40360macky" target={'_blank'} rel="noreferrer">
+                  <a className="text-[white] px-2 py-2 border-redlighter border-[1px] rounded-lg hover:bg-reddark active:ring ring-redlighter/60" href="https://twitter.com/intent/tweet?text=I%20love%20Scanner.cam!%20%23ScannerCam%20%40360macky" target={'_blank'} rel="noreferrer">
                     {t('nav.share.twitter')}
                   </a>
                 </li>
