@@ -9,8 +9,8 @@ test('Home has a user flow to load the model', async ({ page }) => {
   // Click the button element with the text "Start app"
   await page.click('button:has-text("Start app")')
 
-  // Check that there is a p element with the text "Loading Computer Vision model..." OR "Cargando modelo de visión artificial..."
-  expect(await page.textContent('p:has-text("Loading Computer Vision model...")') || await page.textContent('p:has-text("Cargando modelo de visión artificial...")')).toBeTruthy()
+  // Check that there is a p element with the text "Loading Computer Vision model" OR "Cargando modelo de visión artificial"
+  expect(await page.textContent('p:has-text("Loading Computer Vision model")') || await page.textContent('p:has-text("Cargando modelo de visión artificial")')).toBeTruthy()
 
   // Wait until there is no div with the button with the text "Start app"
   await page.waitForSelector('button:has-text("Start app")', { state: 'hidden' })
