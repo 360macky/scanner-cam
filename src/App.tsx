@@ -458,7 +458,7 @@ function App () {
             </p>
             <button
               className={classNames(
-                'bg-redlighter hover:brightness-110 active:ring ring-redlighter/60 w-auto self-center rounded-lg px-4 py-2 cursor-pointer transition text-[1.2rem] font-semibold',
+                'bg-redlighter hover:brightness-110 active:ring ring-redlighter/60 w-auto self-center rounded-lg px-4 py-2 cursor-pointer transition text-[1.4rem] lg:text-[1.2rem] font-semibold',
                 {
                   hidden: modelStatus === 'READY'
                 }
