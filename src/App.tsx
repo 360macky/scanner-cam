@@ -52,10 +52,14 @@ function getVoices (locale: any) {
     window.alert('Browser does not support speech synthesis')
     throw new Error('Browser does not support speech synthesis')
   }
-  if (_cache[locale]) return _cache[locale]
-
-  _cache[locale] = _voices.filter((voice: any) => voice.lang === locale)
-  return _cache[locale]
+  try {
+    if (_cache[locale]) return _cache[locale]
+    _cache[locale] = _voices.filter((voice: any) => voice.lang === locale)
+    return _cache[locale]
+  } catch (error) {
+    window.alert('Browser does not support speech synthesis')
+    throw new Error('Browser does not support speech synthesis')
+  }
 }
 
 /**
