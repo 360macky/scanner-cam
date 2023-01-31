@@ -18,8 +18,6 @@ import Videocam from './assets/icons/videocam.svg'
 import CameraSwitch from './assets/icons/cameraswitch.svg'
 import WelcomeLogo from './assets/welcome-icon.svg'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import * as tf from '@tensorflow/tfjs'
 import * as cocossd from '@tensorflow-models/coco-ssd'
 import isiOS from './utils/isiOS'
 
