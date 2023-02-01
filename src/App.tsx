@@ -20,10 +20,10 @@ import WelcomeLogo from './assets/welcome-icon.svg'
 
 import * as cocossd from '@tensorflow-models/coco-ssd'
 import isiOS from './utils/isiOS'
+import wait from './utils/wait'
 
 import { CAMERA_MODE } from './ui'
 
-let _speechSynth: any
 let _voices: any
 const _cache: any = {}
 
@@ -33,8 +33,7 @@ const _cache: any = {}
  * Source: https://stackoverflow.com/a/61963317/10576458
  */
 function loadWebVoicesWhenAvailable () {
-  _speechSynth = window.speechSynthesis
-  const voices = _speechSynth.getVoices()
+  const voices = window.speechSynthesis.getVoices()
   if (voices.length !== 0) {
     _voices = voices
   }
@@ -46,7 +45,8 @@ function loadWebVoicesWhenAvailable () {
  * @param {string} locale
  */
 function getVoices (locale: any) {
-  if (!_speechSynth) {
+  // Check if browsers support speech synthesis.
+  if (!window.speechSynthesis) {
     window.alert('Browser does not support speech synthesis')
     throw new Error('Browser does not support speech synthesis')
   }
@@ -85,8 +85,8 @@ function playByText (locale: string, text: string, onEnd?: any) {
   }
 
   // Cancel current speaking if there is one running.
-  _speechSynth.cancel()
-  _speechSynth.speak(utterance)
+  window.speechSynthesis.cancel()
+  window.speechSynthesis.speak(utterance)
 }
 
 let detectionsStorage: string[] = []
@@ -96,8 +96,6 @@ let voiceActivated = false
 type BROWSER_MODEL_STATUS = 'START' | 'LOADING' | 'READY' | 'ERROR'
 
 function App () {
-  const wait = async (time = 3000) =>
-    await new Promise((res) => setTimeout(res, time))
   const { t } = useTranslation()
 
   const webcamRef = useRef<Webcam>(null)
@@ -108,6 +106,7 @@ function App () {
   const [neuralNetwork, setNeuralNetwork] = useState<any>(null)
   const [modelStatus, setModelStatus] = useState<BROWSER_MODEL_STATUS>('START')
   const [webcamLoaded, setWebcamLoaded] = useState<boolean>(false)
+  const [speechLoaded, setSpeechLoaded] = useState(false)
 
   const [detections, setDetections] = useState<any[]>([])
   const [webcamOn, setWebcamOn] = useState<boolean>(false)
@@ -201,7 +200,9 @@ function App () {
       setModelStatus('READY')
     } catch (error) {
       setModelStatus('ERROR')
-      // TODO: Handle error.
+      if (error instanceof Error) {
+        console.error(error.message)
+      }
     }
   }, [])
 
@@ -333,6 +334,10 @@ function App () {
     if (!webcamOn) {
       window.alert(t('error.inactive.camera'))
       return
+    }
+    if (!speechLoaded) {
+      loadWebVoicesWhenAvailable()
+      setSpeechLoaded(true)
     }
     setVoiceUI(!voiceActivated)
     voiceActivated = !voiceActivated
@@ -653,7 +658,7 @@ function App () {
               'transition-all bg-redlight rounded-full p-[0.8rem] active:bg-redlighter',
               {
                 flex: !webcamOn
-                // flex: webcamOn
+                // FIXME: flex: webcamOn
               }
             )}
             disabled={!webcamOn}
