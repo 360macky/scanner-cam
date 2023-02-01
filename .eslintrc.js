@@ -3,20 +3,14 @@ module.exports = {
     browser: true,
     es2021: true
   },
-  extends: [
-    'plugin:react/recommended',
-    'standard-with-typescript'
-  ],
-  overrides: [
-  ],
+  extends: ['plugin:react/recommended', 'standard-with-typescript'],
+  overrides: [],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
     project: './tsconfig.json'
   },
-  plugins: [
-    'react'
-  ],
+  plugins: ['react'],
   rules: {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/prefer-optional-chain': 'off',
@@ -28,7 +22,10 @@ module.exports = {
     '@typescript-eslint/no-misused-promises': 'off',
     'promise/param-names': 'off',
     'no-unmodified-loop-condition': 'off',
-    'prefer-regex-literals': 'off'
+    'prefer-regex-literals': 'off',
+    'space-before-function-paren': 'off',
+    '@typescript-eslint/space-before-function-paren': 'off',
+    '@typescript-eslint/member-delimiter-style': 'off'
   },
   ignorePatterns: ['node_modules', 'dist', 'build', 'coverage', 'public']
 }
