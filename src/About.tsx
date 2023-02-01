@@ -7,7 +7,7 @@ interface AboutProps {
   insideApp: boolean
 }
 
-function About ({ insideApp }: AboutProps) {
+function About({ insideApp }: AboutProps) {
   const { t } = useTranslation()
   return (
     <section
@@ -22,8 +22,12 @@ function About ({ insideApp }: AboutProps) {
           <img src={Smartphone} alt="Preview of ScannerCam on smartphone" />
         </div>
         <article className="p-8">
-          <h2 className="text-3xl text-left font-extrabold mb-3">{t('about')} ScannerCam</h2>
-          <p><b>Scanner Cam</b> {t('about.description')}</p>
+          <h2 className="text-3xl text-left font-extrabold mb-3">
+            {t('about')} ScannerCam
+          </h2>
+          <p>
+            <b>Scanner Cam</b> {t('about.description')}
+          </p>
         </article>
       </div>
     </section>
