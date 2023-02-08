@@ -32,7 +32,7 @@ const _cache: any = {}
  * @description Load voices when available in browser.
  * Source: https://stackoverflow.com/a/61963317/10576458
  */
-function loadWebVoicesWhenAvailable () {
+function loadWebVoicesWhenAvailable() {
   const voices = window.speechSynthesis.getVoices()
   if (voices.length !== 0) {
     _voices = voices
@@ -44,7 +44,7 @@ function loadWebVoicesWhenAvailable () {
  * @description Get voices by locale.
  * @param {string} locale
  */
-function getVoices (locale: any) {
+function getVoices(locale: any) {
   // Check if browsers support speech synthesis.
   if (!window.speechSynthesis) {
     window.alert('Browser does not support speech synthesis')
@@ -67,7 +67,7 @@ function getVoices (locale: any) {
  * @param {string} text
  * @param {any} onEnd
  */
-function playByText (locale: string, text: string, onEnd?: any) {
+function playByText(locale: string, text: string, onEnd?: any) {
   const voices = getVoices(locale)
 
   const utterance = new window.SpeechSynthesisUtterance()
@@ -95,7 +95,7 @@ let voiceActivated = false
 
 type BROWSER_MODEL_STATUS = 'START' | 'LOADING' | 'READY' | 'ERROR'
 
-function App () {
+function App() {
   const { t } = useTranslation()
 
   const webcamRef = useRef<Webcam>(null)
@@ -147,9 +147,7 @@ function App () {
       const videoSelected = document.getElementById(
         'webcam'
       ) as HTMLVideoElement
-      const tensorGram = document.getElementById(
-        'tensorgram'
-      ) as HTMLDivElement
+      const tensorGram = document.getElementById('tensorgram') as HTMLDivElement
 
       const clientWidth = tensorGram.clientWidth
       const videoWidth = videoSelected.videoWidth
@@ -229,9 +227,8 @@ function App () {
 
         if (detectionsStorage.length > 0) {
           if (typeof parseObjects(detectionsStorage) !== 'undefined') {
-            const detectionMessage = `${t('identifyprefix')} ${parseObjects(
-              detectionsStorage
-            )}.`
+            const detectionMessage =
+              'Estoy identificando una persona, una laptop y una taza.'
             if (voiceActivated) {
               playByText(navigator.language, detectionMessage)
             }
@@ -252,7 +249,8 @@ function App () {
   const detect = async (net: any) => {
     if (
       typeof webcamRef.current !== 'undefined' &&
-      webcamRef.current !== null) {
+      webcamRef.current !== null
+    ) {
       if (webcamRef.current.video) {
         if (webcamRef.current.video.readyState === 4) {
           const video = webcamRef.current.video
@@ -263,12 +261,14 @@ function App () {
             const parsedDetections = cocoDetections.map(
               (detection: any) => detection.class
             )
-            const translatedDetections = cocoDetections.map((detection: any) => {
-              return {
-                bbox: detection.bbox,
-                class: t(detection.class)
+            const translatedDetections = cocoDetections.map(
+              (detection: any) => {
+                return {
+                  bbox: detection.bbox,
+                  class: t(detection.class)
+                }
               }
-            })
+            )
             if (detections.join() === parsedDetections.join()) {
               detectionsStorage = []
             } else {
@@ -367,21 +367,19 @@ function App () {
         className="bg-redlighter dark:bg-redlight transition hover:scale-110 rounded-full p-[0.8rem]"
         onClick={handleVoiceActivation}
       >
-        {voiceActivated
-          ? (
+        {voiceActivated ? (
           <img
             src={VolumeOn}
             alt={t('turn.off.voice')}
             className="h-[2.5rem] lg:h-[1.7rem]"
           />
-            )
-          : (
+        ) : (
           <img
             src={VolumeOff}
             alt={t('turn.on.voice')}
             className="h-[2.5rem] lg:h-[1.7rem]"
           />
-            )}
+        )}
       </button>
     )
   }
@@ -407,7 +405,12 @@ function App () {
             <nav className="navbar">
               <ul>
                 <li>
-                  <a className="text-[white] px-2 py-2 border-redlighter border-[1px] rounded-lg hover:bg-reddark active:ring ring-redlighter/60" href="https://twitter.com/intent/tweet?text=I%20love%20Scanner.cam!%20%23ScannerCam%20%40360macky" target={'_blank'} rel="noreferrer">
+                  <a
+                    className="text-[white] px-2 py-2 border-redlighter border-[1px] rounded-lg hover:bg-reddark active:ring ring-redlighter/60"
+                    href="https://twitter.com/intent/tweet?text=I%20love%20Scanner.cam!%20%23ScannerCam%20%40360macky"
+                    target={'_blank'}
+                    rel="noreferrer"
+                  >
                     {t('nav.share.twitter')}
                   </a>
                 </li>
@@ -473,9 +476,7 @@ function App () {
               disabled={modelStatus === 'LOADING'}
               onClick={async () => await loadNeuralNetwork()}
             >
-              {
-                modelStatus === 'LOADING' ? t('starting.app') : t('start.app')
-              }
+              {modelStatus === 'LOADING' ? t('starting.app') : t('start.app')}
             </button>
           </div>
           {webcamOn && (
@@ -518,9 +519,10 @@ function App () {
               }
             )}
             style={{
-              width: (webcamHoldRef.current != null)
-                ? `calc(${webcamHoldRef.current.clientWidth}px - 2.8rem)`
-                : '30rem'
+              width:
+                webcamHoldRef.current != null
+                  ? `calc(${webcamHoldRef.current.clientWidth}px - 2.8rem)`
+                  : '30rem'
             }}
           >
             <ObjectToVoiceButton />
@@ -529,30 +531,29 @@ function App () {
               title={webcamOn ? t('turn.off.camera') : t('turn.on.camera')}
               className="bg-redlighter dark:bg-redlight transition hover:scale-110 rounded-full p-[0.8rem]"
             >
-              {webcamOn
-                ? (
+              {webcamOn ? (
                 <img
                   src={Videocam}
                   alt={t('turn.off.camera')}
                   className="h-[2.5rem] lg:h-[1.7rem]"
                 />
-                  )
-                : (
+              ) : (
                 <img
                   src={VideocamOff}
                   alt={t('turn.on.camera')}
                   className="h-[2.5rem] lg:h-[1.7rem]"
                 />
-                  )}
+              )}
             </button>
           </div>
         </div>
         <div
           className="hidden lg:flex lg:items-center lg:flex-col ml-auto mr-auto pt-4"
           style={{
-            width: (webcamHoldRef.current != null)
-              ? `calc(${webcamHoldRef.current.clientWidth}px - 2.8rem)`
-              : '30rem'
+            width:
+              webcamHoldRef.current != null
+                ? `calc(${webcamHoldRef.current.clientWidth}px - 2.8rem)`
+                : '30rem'
           }}
         >
           <div
@@ -591,7 +592,10 @@ function App () {
               }
             )}
           >
-            <p className="dark:text-[white] text-reddarker text-lg font-medium" role="status">
+            <p
+              className="dark:text-[white] text-reddarker text-lg font-medium"
+              role="status"
+            >
               {modelStatus === 'LOADING' && t('loading.model.message')}
               {modelStatus === 'READY' && t('complete.model.message')}
             </p>
@@ -610,96 +614,112 @@ function App () {
             }
           )}
         >
-          <div className={classNames('w-full justify-center z-40', {
-            flex: modelStatus === 'LOADING',
-            hidden: modelStatus === 'READY' || modelStatus === 'START' || modelStatus === 'ERROR'
-          })}>
+          <div
+            className={classNames('w-full justify-center z-40', {
+              flex: modelStatus === 'LOADING',
+              hidden:
+                modelStatus === 'READY' ||
+                modelStatus === 'START' ||
+                modelStatus === 'ERROR'
+            })}
+          >
             <div role="status">
-              <svg aria-hidden="true" className="w-8 h-8 animate-spin fill-redlight" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+              <svg
+                aria-hidden="true"
+                className="w-8 h-8 animate-spin fill-redlight"
+                viewBox="0 0 100 101"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                  fill="currentFill"
+                />
               </svg>
               <span className="sr-only">{t('loading.model.message')}</span>
             </div>
           </div>
-          <div className={classNames('w-full h-full flex-row justify-between', {
-            hidden: modelStatus === 'LOADING' || modelStatus === 'START' || modelStatus === 'ERROR',
-            flex: modelStatus === 'READY',
-            'flex-col': landscape
-          })}>
-          <button
-            title={voiceActivated ? t('turn.off.voice') : t('turn.on.voice')}
-            className={classNames(
-              'bg-redlight rounded-full p-[0.8rem] transition active:bg-redlighter',
-              {
-              }
-            )}
-            onClick={handleVoiceActivation}
+          <div
+            className={classNames('w-full h-full flex-row justify-between', {
+              hidden:
+                modelStatus === 'LOADING' ||
+                modelStatus === 'START' ||
+                modelStatus === 'ERROR',
+              flex: modelStatus === 'READY',
+              'flex-col': landscape
+            })}
           >
-            {voiceActivated
-              ? (
+            <button
+              title={voiceActivated ? t('turn.off.voice') : t('turn.on.voice')}
+              className={classNames(
+                'bg-redlight rounded-full p-[0.8rem] transition active:bg-redlighter',
+                {}
+              )}
+              onClick={handleVoiceActivation}
+            >
+              {voiceActivated ? (
+                <img
+                  src={VolumeOn}
+                  alt={t('turn.on.voice')}
+                  className="h-[2.5rem]"
+                />
+              ) : (
+                <img
+                  src={VolumeOff}
+                  alt={t('turn.off.voice')}
+                  className="h-[2.5rem]"
+                />
+              )}
+            </button>
+            <button
+              title={t('revert.camera')}
+              className={classNames(
+                'transition-all bg-redlight rounded-full p-[0.8rem] active:bg-redlighter',
+                {
+                  flex: !webcamOn
+                  // FIXME: flex: webcamOn
+                }
+              )}
+              disabled={!webcamOn}
+              onClick={handleRevertCameraMode}
+            >
               <img
-                src={VolumeOn}
-                alt={t('turn.on.voice')}
-                className="h-[2.5rem]"
-              />
-                )
-              : (
-              <img
-                src={VolumeOff}
-                alt={t('turn.off.voice')}
-                className="h-[2.5rem]"
-              />
-                )}
-          </button>
-          <button
-            title={t('revert.camera')}
-            className={classNames(
-              'transition-all bg-redlight rounded-full p-[0.8rem] active:bg-redlighter',
-              {
-                flex: !webcamOn
-                // FIXME: flex: webcamOn
-              }
-            )}
-            disabled={!webcamOn}
-            onClick={handleRevertCameraMode}
-          >
-            <img
-              src={CameraSwitch}
-              alt={t('revert.camera')}
-              className="h-[2.5rem] transition-all duration-700"
-              style={{
-                transform: `rotateY(${
-                  facingMode === CAMERA_MODE.USER ? 180 : 0
-                }deg)`
-              }}
-            />
-          </button>
-          <button
-            title={webcamOn ? t('turn.off.camera') : t('turn.on.camera')}
-            className={classNames(
-              'bg-redlight rounded-full p-[0.8rem] transition active:bg-redlighter',
-              {
-              }
-            )}
-            onClick={handleCameraActivation}
-          >
-            {webcamOn
-              ? (
-              <img
-                src={Videocam}
+                src={CameraSwitch}
                 alt={t('revert.camera')}
-                className="h-[2.5rem]"
+                className="h-[2.5rem] transition-all duration-700"
+                style={{
+                  transform: `rotateY(${
+                    facingMode === CAMERA_MODE.USER ? 180 : 0
+                  }deg)`
+                }}
               />
-                )
-              : (
-              <img
-                src={VideocamOff}
-                alt={t('revert.camera')}
-                className="h-[2.5rem]"
-              />
-                )}
-          </button>
+            </button>
+            <button
+              title={webcamOn ? t('turn.off.camera') : t('turn.on.camera')}
+              className={classNames(
+                'bg-redlight rounded-full p-[0.8rem] transition active:bg-redlighter',
+                {}
+              )}
+              onClick={handleCameraActivation}
+            >
+              {webcamOn ? (
+                <img
+                  src={Videocam}
+                  alt={t('revert.camera')}
+                  className="h-[2.5rem]"
+                />
+              ) : (
+                <img
+                  src={VideocamOff}
+                  alt={t('revert.camera')}
+                  className="h-[2.5rem]"
+                />
+              )}
+            </button>
           </div>
         </footer>
       </div>

@@ -13,5 +13,5 @@ test('Home has a user flow to load the model', async ({ page }) => {
   await page.click('button[title="Turn off object-to-voice"]')
 
   // Check that there is a window.alert and accept it
-  page.on('dialog', async dialog => await dialog.accept())
+  page.on('dialog', async (dialog) => await dialog.accept())
 })

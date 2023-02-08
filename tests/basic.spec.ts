@@ -10,7 +10,9 @@ test('Home has basic information about ScannerCam', async ({ page }) => {
   expect(await page.textContent('h2')).toBe('Welcome to ScannerCam')
 
   // Check that the page has a p element with the text "Turn on your camera and the AI will recognize things in display"
-  expect(await page.textContent('p')).toBe('Turn on your camera and the AI will recognize things in display')
+  expect(await page.textContent('p')).toBe(
+    'Turn on your camera and the AI will recognize things in display'
+  )
 
   // Check that the page has a button element with the text "Start app"
   expect(await page.textContent('button')).toBe('Start app')
