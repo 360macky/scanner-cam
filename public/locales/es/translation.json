@@ -14,6 +14,7 @@
   "error.ios.voice": "ScannerCam: Desafortunadamente los dispositivos iOS no son compatibles con objeto-a-voz. Pero sí funciona en teléfonos Android, o computadoras Mac o PC.",
   "error.browser.voice": "ScannerCam: Tu navegador no es compatible con la síntesis de voz. Prueba en otro.",
   "error.inactive.camera": "ScannerCam: Primero enciende tu cámara.",
+  "error.offline": "ScannerCam: Solo necesitamos Internet para cargar el modelo. Después de eso, puedes usarlo sin conexión. Por favor, comprueba su conexión.",
   "loading.model.message": "Cargando modelo de visión artificial",
   "complete.model.message": "Listo. ¡Ya puedes usar ScannerCam!",
   "nav.share.twitter": "Compartir en Twitter",

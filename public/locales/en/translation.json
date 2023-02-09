@@ -14,6 +14,7 @@
   "error.ios.voice": "ScannerCam: iOS devices do not support object-to-voice unfortunately. But you can use it in Android, Mac or PC.",
   "error.browser.voice": "ScannerCam: Your browser does not support speech synthesis. Try in other one.",
   "error.inactive.camera": "ScannerCam: First turn on your camera.",
+  "error.offline": "ScannerCam: We only need Internet to load the model. After that you can use it offline. Please check your connection.",
   "loading.model.message": "Loading Computer Vision model",
   "complete.model.message": "Model loaded Now you can use ScannerCam",
   "nav.share.twitter": "Share on Twitter",

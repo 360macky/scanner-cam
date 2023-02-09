@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import '@tensorflow/tfjs-backend-cpu'
 import '@tensorflow/tfjs-backend-webgl'
 import { isMobile } from 'react-device-detect'
+import * as cocossd from '@tensorflow-models/coco-ssd'
 
 import './App.css'
 import About from './About'
@@ -18,9 +19,9 @@ import Videocam from './assets/icons/videocam.svg'
 import CameraSwitch from './assets/icons/cameraswitch.svg'
 import WelcomeLogo from './assets/welcome-icon.svg'
 
-import * as cocossd from '@tensorflow-models/coco-ssd'
 import isiOS from './utils/isiOS'
 import wait from './utils/wait'
+import ScannerDetection from './types/ScannerDetection'
 
 import { CAMERA_MODE } from './ui'
 
@@ -106,7 +107,7 @@ function App() {
   const [neuralNetwork, setNeuralNetwork] = useState<any>(null)
   const [modelStatus, setModelStatus] = useState<BROWSER_MODEL_STATUS>('START')
   const [webcamLoaded, setWebcamLoaded] = useState<boolean>(false)
-  const [speechLoaded, setSpeechLoaded] = useState(false)
+  const [speechLoaded, setSpeechLoaded] = useState<boolean>(false)
 
   const [detections, setDetections] = useState<any[]>([])
   const [webcamOn, setWebcamOn] = useState<boolean>(false)
@@ -116,12 +117,6 @@ function App() {
     facingMode: CAMERA_MODE.USER
   }
   const [facingMode, setFacingMode] = useState(CAMERA_MODE.USER)
-
-  interface ScannerDetection {
-    bbox: any
-    class: string
-    score: any
-  }
 
   /**
    * @name createTensorgram
@@ -188,7 +183,7 @@ function App() {
    */
   const loadNeuralNetwork = useCallback(async () => {
     if (!navigator.onLine) {
-      alert('Navegador sin internet')
+      alert(t('error.offline'))
       return
     }
     try {
@@ -367,19 +362,21 @@ function App() {
         className="bg-redlighter dark:bg-redlight transition hover:scale-110 rounded-full p-[0.8rem]"
         onClick={handleVoiceActivation}
       >
-        {voiceActivated ? (
+        {voiceActivated
+          ? (
           <img
             src={VolumeOn}
             alt={t('turn.off.voice')}
             className="h-[2.5rem] lg:h-[1.7rem]"
           />
-        ) : (
+            )
+          : (
           <img
             src={VolumeOff}
             alt={t('turn.on.voice')}
             className="h-[2.5rem] lg:h-[1.7rem]"
           />
-        )}
+            )}
       </button>
     )
   }
@@ -531,19 +528,21 @@ function App() {
               title={webcamOn ? t('turn.off.camera') : t('turn.on.camera')}
               className="bg-redlighter dark:bg-redlight transition hover:scale-110 rounded-full p-[0.8rem]"
             >
-              {webcamOn ? (
+              {webcamOn
+                ? (
                 <img
                   src={Videocam}
                   alt={t('turn.off.camera')}
                   className="h-[2.5rem] lg:h-[1.7rem]"
                 />
-              ) : (
+                  )
+                : (
                 <img
                   src={VideocamOff}
                   alt={t('turn.on.camera')}
                   className="h-[2.5rem] lg:h-[1.7rem]"
                 />
-              )}
+                  )}
             </button>
           </div>
         </div>
@@ -661,19 +660,21 @@ function App() {
               )}
               onClick={handleVoiceActivation}
             >
-              {voiceActivated ? (
+              {voiceActivated
+                ? (
                 <img
                   src={VolumeOn}
                   alt={t('turn.on.voice')}
                   className="h-[2.5rem]"
                 />
-              ) : (
+                  )
+                : (
                 <img
                   src={VolumeOff}
                   alt={t('turn.off.voice')}
                   className="h-[2.5rem]"
                 />
-              )}
+                  )}
             </button>
             <button
               title={t('revert.camera')}
@@ -706,19 +707,21 @@ function App() {
               )}
               onClick={handleCameraActivation}
             >
-              {webcamOn ? (
+              {webcamOn
+                ? (
                 <img
                   src={Videocam}
                   alt={t('revert.camera')}
                   className="h-[2.5rem]"
                 />
-              ) : (
+                  )
+                : (
                 <img
                   src={VideocamOff}
                   alt={t('revert.camera')}
                   className="h-[2.5rem]"
                 />
-              )}
+                  )}
             </button>
           </div>
         </footer>
