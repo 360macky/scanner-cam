@@ -7,6 +7,9 @@ import '@tensorflow/tfjs-backend-cpu'
 import '@tensorflow/tfjs-backend-webgl'
 import { isMobile } from 'react-device-detect'
 import * as cocossd from '@tensorflow-models/coco-ssd'
+import { RootState } from './store/appStore'
+import { useDispatch, useSelector } from 'react-redux'
+import { setSpeech } from './store/appSlice'
 
 import './App.css'
 import About from './About'
@@ -98,6 +101,10 @@ type BROWSER_MODEL_STATUS = 'START' | 'LOADING' | 'READY' | 'ERROR'
 
 function App() {
   const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const speechLoaded: boolean = useSelector(
+    (state: RootState) => state.app.speechLoaded
+  )
 
   const webcamRef = useRef<Webcam>(null)
 
@@ -107,7 +114,7 @@ function App() {
   const [neuralNetwork, setNeuralNetwork] = useState<any>(null)
   const [modelStatus, setModelStatus] = useState<BROWSER_MODEL_STATUS>('START')
   const [webcamLoaded, setWebcamLoaded] = useState<boolean>(false)
-  const [speechLoaded, setSpeechLoaded] = useState<boolean>(false)
+  // const [speechLoaded, setSpeechLoaded] = useState<boolean>(false)
 
   const [detections, setDetections] = useState<any[]>([])
   const [webcamOn, setWebcamOn] = useState<boolean>(false)
@@ -222,8 +229,9 @@ function App() {
 
         if (detectionsStorage.length > 0) {
           if (typeof parseObjects(detectionsStorage) !== 'undefined') {
-            const detectionMessage =
-              'Estoy identificando una persona, una laptop y una taza.'
+            const detectionMessage = `${t('identifyprefix')} ${parseObjects(
+              detectionsStorage
+            )}.`
             if (voiceActivated) {
               playByText(navigator.language, detectionMessage)
             }
@@ -332,7 +340,7 @@ function App() {
     }
     if (!speechLoaded) {
       loadWebVoicesWhenAvailable()
-      setSpeechLoaded(true)
+      dispatch(setSpeech(true))
     }
     setVoiceUI(!voiceActivated)
     voiceActivated = !voiceActivated

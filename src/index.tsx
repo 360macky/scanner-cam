@@ -7,6 +7,8 @@ import About from './About'
 import Footer from './Footer'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import reportWebVitals from './reportWebVitals'
+import { Provider } from 'react-redux'
+import store from './store/appStore'
 
 import './i18n'
 
@@ -14,13 +16,15 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
   <Suspense fallback={<div>Loading...</div>}>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/about" element={<About insideApp={false} />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="/about" element={<About insideApp={false} />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </Provider>
   </Suspense>
 )
 

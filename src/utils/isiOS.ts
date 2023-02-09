@@ -1,4 +1,4 @@
-export default function isiOS () {
+export default function isiOS() {
   return (
     [
       'iPad Simulator',

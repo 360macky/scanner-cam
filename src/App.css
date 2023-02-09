@@ -1,5 +1,5 @@
 :root {
-  --pink: #FFC2EF;
+  --pink: #ffc2ef;
 }
 
 .welcome {
@@ -89,6 +89,6 @@
   padding-top: 0.2rem;
   font-size: 1.2rem;
   text-transform: capitalize;
-  color: #A00037;
+  color: #a00037;
   font-weight: 700;
 }
