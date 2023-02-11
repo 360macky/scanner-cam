@@ -14,6 +14,7 @@ import { setSpeech, setWebcamLoaded, setDetections } from './store/appSlice'
 import './App.css'
 import About from './About'
 import ProgressBar from './components/ProgressBar'
+import ProgressMessage from './components/ProgressMessage'
 
 import VolumeOff from './assets/icons/volume_off.svg'
 import VolumeOn from './assets/icons/volume_on.svg'
@@ -535,22 +536,7 @@ function App() {
           }}
         >
           <ProgressBar modelStatus={modelStatus} />
-          <div
-            className={classNames(
-              'transition-all duration-500 delay-[2000ms]',
-              {
-                'opacity-0': modelStatus === 'READY'
-              }
-            )}
-          >
-            <p
-              className="dark:text-[white] text-reddarker text-lg font-medium"
-              role="status"
-            >
-              {modelStatus === 'LOADING' && t('loading.model.message')}
-              {modelStatus === 'READY' && t('complete.model.message')}
-            </p>
-          </div>
+          <ProgressMessage modelStatus={modelStatus} />
         </div>
         <footer
           className={classNames(
