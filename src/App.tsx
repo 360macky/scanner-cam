@@ -9,7 +9,7 @@ import { isMobile } from 'react-device-detect'
 import * as cocossd from '@tensorflow-models/coco-ssd'
 import { RootState } from './store/appStore'
 import { useDispatch, useSelector } from 'react-redux'
-import { setSpeech } from './store/appSlice'
+import { setSpeech, setWebcamLoaded, setDetections } from './store/appSlice'
 
 import './App.css'
 import About from './About'
@@ -105,6 +105,12 @@ function App() {
   const speechLoaded: boolean = useSelector(
     (state: RootState) => state.app.speechLoaded
   )
+  const webcamLoaded: boolean = useSelector(
+    (state: RootState) => state.app.webcamLoaded
+  )
+  const detections: ScannerDetection[] = useSelector(
+    (state: RootState) => state.app.detections
+  )
 
   const webcamRef = useRef<Webcam>(null)
 
@@ -113,10 +119,9 @@ function App() {
   const { portrait, landscape } = useWindowOrientation()
   const [neuralNetwork, setNeuralNetwork] = useState<any>(null)
   const [modelStatus, setModelStatus] = useState<BROWSER_MODEL_STATUS>('START')
-  const [webcamLoaded, setWebcamLoaded] = useState<boolean>(false)
+  // const [webcamLoaded, setWebcamLoaded] = useState<boolean>(false)
   // const [speechLoaded, setSpeechLoaded] = useState<boolean>(false)
-
-  const [detections, setDetections] = useState<any[]>([])
+  // const [detections, setDetections] = useState<any[]>([])
   const [webcamOn, setWebcamOn] = useState<boolean>(false)
   const [voiceUI, setVoiceUI] = useState<boolean>(false)
 
@@ -258,7 +263,7 @@ function App() {
         if (webcamRef.current.video.readyState === 4) {
           const video = webcamRef.current.video
           if (!webcamLoaded) {
-            setWebcamLoaded(true)
+            dispatch(setWebcamLoaded(true))
           } else {
             const cocoDetections = await net.detect(video)
             const parsedDetections = cocoDetections.map(
@@ -352,13 +357,13 @@ function App() {
    * @returns {void}
    */
   const handleCameraActivation = (): void => {
-    // When the camera is about to turn off, also turn off the object-to-voice.
+    // When the camera is about to turn off, also turn off the element-to-voice.
     if (webcamOn) {
       voiceActivated = false
       setVoiceUI(false)
     }
     setWebcamOn(!webcamOn)
-    setDetections([])
+    dispatch(setDetections([]))
     const tensorGram = document.getElementById('tensorgram') as HTMLDivElement
     tensorGram.replaceChildren()
   }
