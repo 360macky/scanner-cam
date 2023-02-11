@@ -13,6 +13,7 @@ import { setSpeech, setWebcamLoaded, setDetections } from './store/appSlice'
 
 import './App.css'
 import About from './About'
+import ProgressBar from './components/ProgressBar'
 
 import VolumeOff from './assets/icons/volume_off.svg'
 import VolumeOn from './assets/icons/volume_on.svg'
@@ -96,7 +97,7 @@ let detectionsStorage: string[] = []
 
 let voiceActivated = false
 
-type BROWSER_MODEL_STATUS = 'START' | 'LOADING' | 'READY' | 'ERROR'
+export type BROWSER_MODEL_STATUS = 'START' | 'LOADING' | 'READY' | 'ERROR'
 
 function App() {
   const { t } = useTranslation()
@@ -533,34 +534,7 @@ function App() {
                 : '30rem'
           }}
         >
-          <div
-            className={classNames(
-              'w-full dark:bg-redblack bg-gray-200 rounded-full h-4 mb-4 transition-all duration-500 delay-1000',
-              {
-                'opacity-0': modelStatus === 'READY'
-              }
-            )}
-            role="progressbar"
-            aria-label={
-              modelStatus === 'LOADING'
-                ? t('loading.model.message')
-                : t('complete.model.message')
-            }
-            aria-valuenow={modelStatus === 'LOADING' ? 0 : 100}
-            aria-valuemin={0}
-            aria-valuemax={100}
-          >
-            <div
-              className={classNames(
-                'bg-redcandylight h-4 rounded-full transition-all duration-500',
-                {
-                  'w-[0%]': modelStatus === 'LOADING',
-                  'w-full': modelStatus === 'READY',
-                  'opacity-0': modelStatus === 'START'
-                }
-              )}
-            ></div>
-          </div>
+          <ProgressBar modelStatus={modelStatus} />
           <div
             className={classNames(
               'transition-all duration-500 delay-[2000ms]',

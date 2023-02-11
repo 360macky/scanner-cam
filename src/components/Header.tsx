@@ -16,7 +16,9 @@ const Header = () => {
     >
       <div className="flex justify-between items-center w-[1024px]">
         <div className="flex items-center gap-x-4">
-          <span className="text-2xl font-bold text-reddark dark:text-redlighter">ScannerCam</span>
+          <span className="text-2xl font-bold text-reddark dark:text-redlighter">
+            ScannerCam
+          </span>
         </div>
         <nav className="navbar">
           <ul className="flex gap-x-2">
