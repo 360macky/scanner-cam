@@ -9,6 +9,7 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import reportWebVitals from './reportWebVitals'
 import { Provider } from 'react-redux'
 import store from './store/appStore'
+import Header from './components/Header'
 
 import './i18n'
 
@@ -17,6 +18,7 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <Suspense fallback={<div>Loading...</div>}>
     <Provider store={store}>
+      <Header />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />} />

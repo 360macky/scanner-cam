@@ -25,7 +25,8 @@ module.exports = {
     'prefer-regex-literals': 'off',
     'space-before-function-paren': 'off',
     '@typescript-eslint/space-before-function-paren': 'off',
-    '@typescript-eslint/member-delimiter-style': 'off'
+    '@typescript-eslint/member-delimiter-style': 'off',
+    'multiline-ternary': 'off'
   },
   ignorePatterns: ['node_modules', 'dist', 'build', 'coverage', 'public']
 }

@@ -14,7 +14,6 @@ import { setSpeech, setWebcamLoaded, setDetections } from './store/appSlice'
 import './App.css'
 import About from './About'
 
-import Logo from './assets/logo.png'
 import VolumeOff from './assets/icons/volume_off.svg'
 import VolumeOn from './assets/icons/volume_on.svg'
 import VideocamOff from './assets/icons/videocam_off.svg'
@@ -375,21 +374,19 @@ function App() {
         className="bg-redlighter dark:bg-redlight transition hover:scale-110 rounded-full p-[0.8rem]"
         onClick={handleVoiceActivation}
       >
-        {voiceActivated
-          ? (
+        {voiceActivated ? (
           <img
             src={VolumeOn}
             alt={t('turn.off.voice')}
             className="h-[2.5rem] lg:h-[1.7rem]"
           />
-            )
-          : (
+        ) : (
           <img
             src={VolumeOff}
             alt={t('turn.on.voice')}
             className="h-[2.5rem] lg:h-[1.7rem]"
           />
-            )}
+        )}
       </button>
     )
   }
@@ -397,37 +394,6 @@ function App() {
   return (
     <>
       <div className="app h-full lg:min-h-screen bg-redblack lg:bg-[white] lg:dark:bg-reddark">
-        <header
-          className={classNames(
-            'z-30 bg-redblack lg:bg-redcandydark lg:dark:bg-reddarker hidden lg:flex lg:justify-center h-[2.6rem] lg:h-auto lg:py-[0.4rem] sticky top-0',
-            { hidden: landscape && isMobile }
-          )}
-        >
-          <div className="flex justify-between items-center w-[1024px]">
-            <div>
-              <img
-                src={Logo}
-                alt="Scanner Cam"
-                title="Scanner Cam"
-                className="transition-all hover:rotate-180 hidden lg:block lg:h-[2.5rem]"
-              />
-            </div>
-            <nav className="navbar">
-              <ul>
-                <li>
-                  <a
-                    className="text-[white] px-2 py-2 border-redlighter border-[1px] rounded-lg hover:bg-reddark active:ring ring-redlighter/60"
-                    href="https://twitter.com/intent/tweet?text=I%20love%20Scanner.cam!%20%23ScannerCam%20%40360macky"
-                    target={'_blank'}
-                    rel="noreferrer"
-                  >
-                    {t('nav.share.twitter')}
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </header>
         <div
           className={classNames(
             'rounded-lg bg-redblack lg:bg-opacity-0 flex items-end lg:justify-center lg:w-full lg:pt-[2.6rem]',
@@ -440,7 +406,7 @@ function App() {
         >
           <div
             className={classNames(
-              'Webcam-module flex flex-col justify-center lg:pt-5 w-[640px] bg-redblack rounded-[2rem] gap-y-3',
+              'Webcam-module flex flex-col justify-center lg:pt-5 w-[640px] bg-redblack dark:lg:bg-redblack lg:bg-white rounded-[2rem] gap-y-3',
               {
                 'ml-0 h-screen': landscape && isMobile,
                 'ml-auto lg:h-[480px]': !isMobile
@@ -452,11 +418,12 @@ function App() {
             <img
               src={WelcomeLogo}
               alt={t('welcome.message')}
-              className="welcome hidden lg:block"
+              className="welcome hidden lg:block dark:invert-0 invert"
+              aria-hidden="true"
             />
             <h2
               className={classNames(
-                'text-redlighter text-2xl lg:text-3xl font-bold transition delay-300',
+                'text-redlight text-2xl lg:text-4xl font-bold transition delay-300',
                 {
                   'opacity-0': webcamOn,
                   'opacity-100': !webcamOn
@@ -467,7 +434,7 @@ function App() {
             </h2>
             <p
               className={classNames(
-                'text-[white] text-lg transition delay-300',
+                ' dark:text-[white] text-lg transition delay-300',
                 {
                   'opacity-0': webcamOn,
                   'opacity-100': !webcamOn
@@ -541,21 +508,19 @@ function App() {
               title={webcamOn ? t('turn.off.camera') : t('turn.on.camera')}
               className="bg-redlighter dark:bg-redlight transition hover:scale-110 rounded-full p-[0.8rem]"
             >
-              {webcamOn
-                ? (
+              {webcamOn ? (
                 <img
                   src={Videocam}
                   alt={t('turn.off.camera')}
                   className="h-[2.5rem] lg:h-[1.7rem]"
                 />
-                  )
-                : (
+              ) : (
                 <img
                   src={VideocamOff}
                   alt={t('turn.on.camera')}
                   className="h-[2.5rem] lg:h-[1.7rem]"
                 />
-                  )}
+              )}
             </button>
           </div>
         </div>
@@ -570,7 +535,7 @@ function App() {
         >
           <div
             className={classNames(
-              'w-full bg-redblack rounded-full h-4 mb-4 transition-all duration-500 delay-1000',
+              'w-full dark:bg-redblack bg-gray-200 rounded-full h-4 mb-4 transition-all duration-500 delay-1000',
               {
                 'opacity-0': modelStatus === 'READY'
               }
@@ -673,21 +638,19 @@ function App() {
               )}
               onClick={handleVoiceActivation}
             >
-              {voiceActivated
-                ? (
+              {voiceActivated ? (
                 <img
                   src={VolumeOn}
                   alt={t('turn.on.voice')}
                   className="h-[2.5rem]"
                 />
-                  )
-                : (
+              ) : (
                 <img
                   src={VolumeOff}
                   alt={t('turn.off.voice')}
                   className="h-[2.5rem]"
                 />
-                  )}
+              )}
             </button>
             <button
               title={t('revert.camera')}
@@ -720,21 +683,19 @@ function App() {
               )}
               onClick={handleCameraActivation}
             >
-              {webcamOn
-                ? (
+              {webcamOn ? (
                 <img
                   src={Videocam}
                   alt={t('revert.camera')}
                   className="h-[2.5rem]"
                 />
-                  )
-                : (
+              ) : (
                 <img
                   src={VideocamOff}
                   alt={t('revert.camera')}
                   className="h-[2.5rem]"
                 />
-                  )}
+              )}
             </button>
           </div>
         </footer>
