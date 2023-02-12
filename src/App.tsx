@@ -14,7 +14,8 @@ import {
   setWebcamLoaded,
   setDetections,
   setModelStatus,
-  toggleWebcam
+  toggleWebcam,
+  toggleCameraMode
 } from './store/appSlice'
 
 import './App.css'
@@ -26,6 +27,8 @@ import StartButton from './components/StartButton'
 import MobilePanel from './components/MobilePanel'
 import DesktopPanel from './components/DesktopPanel'
 import Tensorgram from './components/Tensorgram'
+import AppDesktopContainer from './components/AppDesktopContainer'
+import WebcamBaseModule from './components/WebcamBaseModule'
 
 import VolumeOff from './assets/icons/volume_off.svg'
 import VolumeOn from './assets/icons/volume_on.svg'
@@ -38,9 +41,7 @@ import isiOS from './utils/isiOS'
 import wait from './utils/wait'
 
 import ScannerDetection from './types/ScannerDetection'
-import { BROWSER_MODEL_STATUS } from './types/initialState'
-
-import { CAMERA_MODE } from './ui'
+import { BROWSER_MODEL_STATUS, CAMERA_MODE } from './types/initialState'
 
 let _voices: any
 const _cache: any = {}
@@ -129,6 +130,9 @@ function App() {
   const isWebcamOn: boolean = useSelector(
     (state: RootState) => state.app.isWebcamOn
   )
+  const cameraMode: CAMERA_MODE = useSelector(
+    (state: RootState) => state.app.cameraMode
+  )
 
   const webcamRef = useRef<Webcam>(null)
   const tensorGramRef = useRef<HTMLDivElement>(null)
@@ -140,7 +144,6 @@ function App() {
   const videoConstraints = {
     facingMode: CAMERA_MODE.USER
   }
-  const [facingMode, setFacingMode] = useState(CAMERA_MODE.USER)
 
   /**
    * @name createTensorgram
@@ -230,11 +233,7 @@ function App() {
    * @description Revert camera mode.
    */
   const handleRevertCameraMode = useCallback(() => {
-    setFacingMode((prevState) =>
-      prevState === CAMERA_MODE.USER
-        ? CAMERA_MODE.ENVIRONMENT
-        : CAMERA_MODE.USER
-    )
+    dispatch(toggleCameraMode())
   }, [])
 
   useEffect(() => {
@@ -409,27 +408,8 @@ function App() {
   return (
     <>
       <div className="h-full lg:min-h-screen bg-redblack lg:bg-[white] lg:dark:bg-reddark">
-        <div
-          className={classNames(
-            'rounded-lg bg-redblack lg:bg-opacity-0 flex items-end lg:justify-center lg:w-full lg:pt-[2.6rem]',
-            {
-              'h-full w-[calc(100vw-7rem)]': landscape && isMobile,
-              'justify-center w-full min-h-full items-center h-[calc(100vh-16rem)]':
-                !landscape && isMobile
-            }
-          )}
-        >
-          <div
-            className={classNames(
-              'Webcam-module flex flex-col justify-center lg:pt-5 w-[640px] bg-redblack dark:lg:bg-redblack lg:bg-white rounded-[2rem] gap-y-3',
-              {
-                'ml-0 h-screen': landscape && isMobile,
-                'ml-auto lg:h-[480px]': !isMobile
-              }
-            )}
-            ref={webcamHoldRef}
-            id="webcam-holdref"
-          >
+        <AppDesktopContainer>
+          <WebcamBaseModule webcamHoldRef={webcamHoldRef}>
             <img
               src={WelcomeLogo}
               alt={t('welcome.message')}
@@ -459,7 +439,7 @@ function App() {
               {t('welcome.description')}
             </p>
             <StartButton onClick={async () => await loadNeuralNetwork()} />
-          </div>
+          </WebcamBaseModule>
           {isWebcamOn && (
             <Webcam
               id="webcam"
@@ -476,7 +456,7 @@ function App() {
               )}
               videoConstraints={{
                 ...videoConstraints,
-                facingMode
+                facingMode: cameraMode
               }}
             />
           )}
@@ -503,7 +483,7 @@ function App() {
               )}
             </button>
           </DesktopPanel>
-        </div>
+        </AppDesktopContainer>
         <div
           className="hidden lg:flex lg:items-center lg:flex-col ml-auto mr-auto pt-4"
           style={{
@@ -571,7 +551,7 @@ function App() {
                 className="h-[2.5rem] transition-all duration-700"
                 style={{
                   transform: `rotateY(${
-                    facingMode === CAMERA_MODE.USER ? 180 : 0
+                    cameraMode === CAMERA_MODE.USER ? 180 : 0
                   }deg)`
                 }}
               />

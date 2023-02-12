@@ -1,12 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import InitialState, { BROWSER_MODEL_STATUS } from '../types/initialState'
+import InitialState, {
+  BROWSER_MODEL_STATUS,
+  CAMERA_MODE
+} from '../types/initialState'
 
 const initialState: InitialState = {
   webcamLoaded: false,
   speechLoaded: false,
   detections: [],
   modelStatus: 'START',
-  isWebcamOn: false
+  isWebcamOn: false,
+  cameraMode: CAMERA_MODE.USER
 }
 
 export const appSlice = createSlice({
@@ -27,6 +31,12 @@ export const appSlice = createSlice({
     },
     toggleWebcam: (state) => {
       state.isWebcamOn = !state.isWebcamOn
+    },
+    toggleCameraMode: (state) => {
+      state.cameraMode =
+        state.cameraMode === CAMERA_MODE.USER
+          ? CAMERA_MODE.ENVIRONMENT
+          : CAMERA_MODE.USER
     }
   }
 })
@@ -36,6 +46,7 @@ export const {
   setWebcamLoaded,
   setDetections,
   setModelStatus,
-  toggleWebcam
+  toggleWebcam,
+  toggleCameraMode
 } = appSlice.actions
 export default appSlice.reducer
