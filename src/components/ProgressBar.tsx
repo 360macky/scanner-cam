@@ -1,14 +1,15 @@
 import React from 'react'
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
-import { BROWSER_MODEL_STATUS } from '../App'
+import { useSelector } from 'react-redux'
+import { RootState } from '../store/appStore'
+import { BROWSER_MODEL_STATUS } from '../types/initialState'
 
-interface ProgressBarProps {
-  modelStatus: BROWSER_MODEL_STATUS
-}
-
-const ProgressBar = ({ modelStatus }: ProgressBarProps) => {
+const ProgressBar = () => {
   const { t } = useTranslation()
+  const modelStatus: BROWSER_MODEL_STATUS = useSelector(
+    (state: RootState) => state.app.modelStatus
+  )
   return (
     <div
       className={classNames(

@@ -1,9 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import InitialState, { BROWSER_MODEL_STATUS } from '../types/initialState'
 
-const initialState = {
+const initialState: InitialState = {
   webcamLoaded: false,
   speechLoaded: false,
-  detections: []
+  detections: [],
+  modelStatus: 'START'
 }
 
 export const appSlice = createSlice({
@@ -18,9 +20,13 @@ export const appSlice = createSlice({
     },
     setDetections: (state, action: PayloadAction<any>) => {
       state.detections = action.payload
+    },
+    setModelStatus: (state, action: PayloadAction<BROWSER_MODEL_STATUS>) => {
+      state.modelStatus = action.payload
     }
   }
 })
 
-export const { setSpeech, setWebcamLoaded, setDetections } = appSlice.actions
+export const { setSpeech, setWebcamLoaded, setDetections, setModelStatus } =
+  appSlice.actions
 export default appSlice.reducer

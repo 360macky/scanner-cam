@@ -9,7 +9,12 @@ import { isMobile } from 'react-device-detect'
 import * as cocossd from '@tensorflow-models/coco-ssd'
 import { RootState } from './store/appStore'
 import { useDispatch, useSelector } from 'react-redux'
-import { setSpeech, setWebcamLoaded, setDetections } from './store/appSlice'
+import {
+  setSpeech,
+  setWebcamLoaded,
+  setDetections,
+  setModelStatus
+} from './store/appSlice'
 
 import './App.css'
 import About from './About'
@@ -25,7 +30,9 @@ import WelcomeLogo from './assets/welcome-icon.svg'
 
 import isiOS from './utils/isiOS'
 import wait from './utils/wait'
+
 import ScannerDetection from './types/ScannerDetection'
+import { BROWSER_MODEL_STATUS } from './types/initialState'
 
 import { CAMERA_MODE } from './ui'
 
@@ -98,8 +105,6 @@ let detectionsStorage: string[] = []
 
 let voiceActivated = false
 
-export type BROWSER_MODEL_STATUS = 'START' | 'LOADING' | 'READY' | 'ERROR'
-
 function App() {
   const { t } = useTranslation()
   const dispatch = useDispatch()
@@ -112,17 +117,15 @@ function App() {
   const detections: ScannerDetection[] = useSelector(
     (state: RootState) => state.app.detections
   )
+  const modelStatus: BROWSER_MODEL_STATUS = useSelector(
+    (state: RootState) => state.app.modelStatus
+  )
 
   const webcamRef = useRef<Webcam>(null)
-
   const tensorGramRef = useRef<HTMLDivElement>(null)
   const webcamHoldRef = useRef<HTMLDivElement>(null)
   const { portrait, landscape } = useWindowOrientation()
   const [neuralNetwork, setNeuralNetwork] = useState<any>(null)
-  const [modelStatus, setModelStatus] = useState<BROWSER_MODEL_STATUS>('START')
-  // const [webcamLoaded, setWebcamLoaded] = useState<boolean>(false)
-  // const [speechLoaded, setSpeechLoaded] = useState<boolean>(false)
-  // const [detections, setDetections] = useState<any[]>([])
   const [webcamOn, setWebcamOn] = useState<boolean>(false)
   const [voiceUI, setVoiceUI] = useState<boolean>(false)
 
@@ -189,28 +192,40 @@ function App() {
     return () => {}
   }, [])
 
+  useEffect(() => {
+    // After three seconds put a hello message.
+    setTimeout(() => {
+      console.log('switching state..')
+      setWebcamLoaded(true)
+    }, 3000)
+
+    return () => {}
+  }, [])
+
   /**
    * @name loadNeuralNetwork
    * @description Load neural network model.
    * @returns {Promise<void>}
    */
-  const loadNeuralNetwork = useCallback(async () => {
+  const loadNeuralNetwork = async () => {
+    dispatch(setModelStatus('LOADING'))
     if (!navigator.onLine) {
       alert(t('error.offline'))
       return
     }
     try {
-      setModelStatus('LOADING')
+      dispatch(setModelStatus('LOADING'))
       const network = await cocossd.load()
       setNeuralNetwork(network)
-      setModelStatus('READY')
+      dispatch(setModelStatus('READY'))
     } catch (error) {
-      setModelStatus('ERROR')
+      dispatch(setModelStatus('ERROR'))
+      console.error(error)
       if (error instanceof Error) {
         console.error(error.message)
       }
     }
-  }, [])
+  }
 
   /**
    * @name handleRevertCameraMode
@@ -535,8 +550,8 @@ function App() {
                 : '30rem'
           }}
         >
-          <ProgressBar modelStatus={modelStatus} />
-          <ProgressMessage modelStatus={modelStatus} />
+          <ProgressBar />
+          <ProgressMessage />
         </div>
         <footer
           className={classNames(

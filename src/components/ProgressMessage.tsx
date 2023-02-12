@@ -1,14 +1,15 @@
 import React from 'react'
 import classNames from 'classnames'
-import { BROWSER_MODEL_STATUS } from '../App'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import { RootState } from '../store/appStore'
+import { BROWSER_MODEL_STATUS } from '../types/initialState'
 
-interface ProgressMessageProps {
-  modelStatus: BROWSER_MODEL_STATUS
-}
-
-const ProgressMessage = ({ modelStatus }: ProgressMessageProps) => {
+const ProgressMessage = () => {
   const { t } = useTranslation()
+  const modelStatus: BROWSER_MODEL_STATUS = useSelector(
+    (state: RootState) => state.app.modelStatus
+  )
   return (
     <div
       className={classNames('transition-all duration-500 delay-[2000ms]', {
