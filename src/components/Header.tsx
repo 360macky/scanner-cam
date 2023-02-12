@@ -16,7 +16,7 @@ const Header = () => {
     >
       <div className="flex justify-between items-center w-[1024px]">
         <div className="flex items-center gap-x-4">
-          <span className="text-2xl font-bold text-reddark dark:text-redlighter">
+          <span className="text-2xl font-bold text-redcandydark dark:text-redlighter">
             ScannerCam
           </span>
         </div>
@@ -24,7 +24,7 @@ const Header = () => {
           <ul className="flex gap-x-2">
             <li>
               <a
-                className="text-[white] px-2 py-2 border-reddark border-[1px] rounded-lg bg-reddark active:ring ring-reddark/60"
+                className="px-2 py-2 hover:text-redcandydark active:ring ring-reddark/60"
                 href="https://twitter.com/intent/tweet?text=I%20love%20Scanner.cam!%20%23ScannerCam%20%40360macky"
                 target={'_blank'}
                 rel="noreferrer"
