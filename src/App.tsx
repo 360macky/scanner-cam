@@ -8,7 +8,6 @@ import '@tensorflow/tfjs-backend-webgl'
 import * as cocossd from '@tensorflow-models/coco-ssd'
 import { RootState } from './store/appStore'
 import { useDispatch, useSelector } from 'react-redux'
-import { motion } from 'framer-motion'
 import {
   setSpeech,
   setWebcamLoaded,
@@ -417,7 +416,7 @@ function App() {
               className="welcome hidden lg:block dark:invert-0 invert select-none"
               aria-hidden="true"
             />
-            <motion.h2
+            <h2
               className={classNames(
                 'dark:text-redlight text-redcandydark text-3xl lg:text-5xl font-extrabold transition delay-300',
                 {
@@ -425,14 +424,10 @@ function App() {
                   'opacity-100': !isWebcamOn
                 }
               )}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-              viewport={{ once: true }}
             >
               {t('welcome.message')}
-            </motion.h2>
-            <motion.p
+            </h2>
+            <p
               className={classNames(
                 ' dark:text-[white] text-lg transition delay-300',
                 {
@@ -440,13 +435,9 @@ function App() {
                   'opacity-100': !isWebcamOn
                 }
               )}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-              viewport={{ once: true }}
             >
               {t('welcome.description')}
-            </motion.p>
+            </p>
             <StartButton onClick={async () => await loadNeuralNetwork()} />
           </WebcamBaseModule>
           {isWebcamOn && (

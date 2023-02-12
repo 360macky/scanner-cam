@@ -22,7 +22,7 @@ const StartButton = ({ onClick }: ButtonProps) => {
       viewport={{ once: true }}
       transition={{ delay: 0.2, ease: 'easeInOut' }}
       className={classNames(
-        'bg-gradient-to-br from-redlightdimmed to-reddark text-white hover:brightness-110 active:ring ring-redlight/60 w-auto self-center rounded-lg px-4 py-2 cursor-pointer transition text-[1.4rem] lg:text-[1.2rem] font-semibold',
+        'bg-gradient-to-br from-redlightdimmed to-reddark text-white hover:brightness-110 active:ring ring-redlight/60 w-auto self-center rounded-lg px-4 py-2 cursor-pointer text-[1.4rem] lg:text-[1.2rem] font-semibold',
         {
           hidden: modelStatus === 'READY'
         }
