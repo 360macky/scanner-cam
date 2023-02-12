@@ -196,16 +196,6 @@ function App() {
     return () => {}
   }, [])
 
-  useEffect(() => {
-    // After three seconds put a hello message.
-    setTimeout(() => {
-      console.log('switching state..')
-      setWebcamLoaded(true)
-    }, 3000)
-
-    return () => {}
-  }, [])
-
   /**
    * @name loadNeuralNetwork
    * @description Load neural network model.
