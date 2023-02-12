@@ -5,7 +5,8 @@ const initialState: InitialState = {
   webcamLoaded: false,
   speechLoaded: false,
   detections: [],
-  modelStatus: 'START'
+  modelStatus: 'START',
+  isWebcamOn: false
 }
 
 export const appSlice = createSlice({
@@ -23,10 +24,18 @@ export const appSlice = createSlice({
     },
     setModelStatus: (state, action: PayloadAction<BROWSER_MODEL_STATUS>) => {
       state.modelStatus = action.payload
+    },
+    toggleWebcam: (state) => {
+      state.isWebcamOn = !state.isWebcamOn
     }
   }
 })
 
-export const { setSpeech, setWebcamLoaded, setDetections, setModelStatus } =
-  appSlice.actions
+export const {
+  setSpeech,
+  setWebcamLoaded,
+  setDetections,
+  setModelStatus,
+  toggleWebcam
+} = appSlice.actions
 export default appSlice.reducer

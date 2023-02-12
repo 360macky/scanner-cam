@@ -13,7 +13,8 @@ import {
   setSpeech,
   setWebcamLoaded,
   setDetections,
-  setModelStatus
+  setModelStatus,
+  toggleWebcam
 } from './store/appSlice'
 
 import './App.css'
@@ -121,13 +122,15 @@ function App() {
   const modelStatus: BROWSER_MODEL_STATUS = useSelector(
     (state: RootState) => state.app.modelStatus
   )
+  const isWebcamOn: boolean = useSelector(
+    (state: RootState) => state.app.isWebcamOn
+  )
 
   const webcamRef = useRef<Webcam>(null)
   const tensorGramRef = useRef<HTMLDivElement>(null)
   const webcamHoldRef = useRef<HTMLDivElement>(null)
   const { portrait, landscape } = useWindowOrientation()
   const [neuralNetwork, setNeuralNetwork] = useState<any>(null)
-  const [webcamOn, setWebcamOn] = useState<boolean>(false)
   const [voiceUI, setVoiceUI] = useState<boolean>(false)
 
   const videoConstraints = {
@@ -356,7 +359,7 @@ function App() {
       window.alert(t('error.ios.voice'))
       return
     }
-    if (!webcamOn) {
+    if (!isWebcamOn) {
       window.alert(t('error.inactive.camera'))
       return
     }
@@ -375,11 +378,11 @@ function App() {
    */
   const handleCameraActivation = (): void => {
     // When the camera is about to turn off, also turn off the element-to-voice.
-    if (webcamOn) {
+    if (isWebcamOn) {
       voiceActivated = false
       setVoiceUI(false)
     }
-    setWebcamOn(!webcamOn)
+    dispatch(toggleWebcam())
     dispatch(setDetections([]))
     const tensorGram = document.getElementById('tensorgram') as HTMLDivElement
     tensorGram.replaceChildren()
@@ -443,8 +446,8 @@ function App() {
               className={classNames(
                 'text-redlight text-2xl lg:text-4xl font-bold transition delay-300',
                 {
-                  'opacity-0': webcamOn,
-                  'opacity-100': !webcamOn
+                  'opacity-0': isWebcamOn,
+                  'opacity-100': !isWebcamOn
                 }
               )}
             >
@@ -454,8 +457,8 @@ function App() {
               className={classNames(
                 ' dark:text-[white] text-lg transition delay-300',
                 {
-                  'opacity-0': webcamOn,
-                  'opacity-100': !webcamOn
+                  'opacity-0': isWebcamOn,
+                  'opacity-100': !isWebcamOn
                 }
               )}
             >
@@ -474,7 +477,7 @@ function App() {
               {modelStatus === 'LOADING' ? t('starting.app') : t('start.app')}
             </button>
           </div>
-          {webcamOn && (
+          {isWebcamOn && (
             <Webcam
               id="webcam"
               ref={webcamRef}
@@ -523,10 +526,10 @@ function App() {
             <ObjectToVoiceButton />
             <button
               onClick={handleCameraActivation}
-              title={webcamOn ? t('turn.off.camera') : t('turn.on.camera')}
+              title={isWebcamOn ? t('turn.off.camera') : t('turn.on.camera')}
               className="bg-redlighter dark:bg-redlight transition hover:scale-110 rounded-full p-[0.8rem]"
             >
-              {webcamOn ? (
+              {isWebcamOn ? (
                 <img
                   src={Videocam}
                   alt={t('turn.off.camera')}
@@ -605,11 +608,11 @@ function App() {
               className={classNames(
                 'transition-all bg-redlight rounded-full p-[0.8rem] active:bg-redlighter',
                 {
-                  flex: !webcamOn
+                  flex: !isWebcamOn
                   // FIXME: flex: webcamOn
                 }
               )}
-              disabled={!webcamOn}
+              disabled={!isWebcamOn}
               onClick={handleRevertCameraMode}
             >
               <img
@@ -624,14 +627,14 @@ function App() {
               />
             </button>
             <button
-              title={webcamOn ? t('turn.off.camera') : t('turn.on.camera')}
+              title={isWebcamOn ? t('turn.off.camera') : t('turn.on.camera')}
               className={classNames(
                 'bg-redlight rounded-full p-[0.8rem] transition active:bg-redlighter',
                 {}
               )}
               onClick={handleCameraActivation}
             >
-              {webcamOn ? (
+              {isWebcamOn ? (
                 <img
                   src={Videocam}
                   alt={t('revert.camera')}

@@ -5,6 +5,7 @@ interface InitialState {
   speechLoaded: boolean
   detections: any[]
   modelStatus: BROWSER_MODEL_STATUS
+  isWebcamOn: boolean
 }
 
 export default InitialState
