@@ -16,7 +16,7 @@ const WebcamBaseModule = ({
   return (
     <div
       className={classNames(
-        'Webcam-module flex flex-col justify-center lg:pt-5 w-[640px] bg-redblack dark:lg:bg-redblack lg:bg-white rounded-[2rem] gap-y-3',
+        'Webcam-module flex flex-col justify-center lg:pt-5 w-[640px] bg-black dark:lg:bg-redblack lg:bg-white rounded-[2rem] gap-y-3',
         {
           'ml-0 h-screen': landscape && isMobile,
           'ml-auto lg:h-[480px]': !isMobile

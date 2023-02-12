@@ -5,7 +5,6 @@ import useWindowOrientation from 'use-window-orientation'
 import { useTranslation } from 'react-i18next'
 import '@tensorflow/tfjs-backend-cpu'
 import '@tensorflow/tfjs-backend-webgl'
-import { isMobile } from 'react-device-detect'
 import * as cocossd from '@tensorflow-models/coco-ssd'
 import { RootState } from './store/appStore'
 import { useDispatch, useSelector } from 'react-redux'
@@ -24,17 +23,18 @@ import ProgressBar from './components/ProgressBar'
 import ProgressMessage from './components/ProgressMessage'
 import LoadingSpinner from './components/LoadingSpinner'
 import StartButton from './components/StartButton'
+import CameraSwitchButton from './components/CameraSwitchButton'
 import MobilePanel from './components/MobilePanel'
 import DesktopPanel from './components/DesktopPanel'
 import Tensorgram from './components/Tensorgram'
 import AppDesktopContainer from './components/AppDesktopContainer'
 import WebcamBaseModule from './components/WebcamBaseModule'
+import WebcamCoreModule from './components/WebcamCoreModule'
 
 import VolumeOff from './assets/icons/volume_off.svg'
 import VolumeOn from './assets/icons/volume_on.svg'
 import VideocamOff from './assets/icons/videocam_off.svg'
 import Videocam from './assets/icons/videocam.svg'
-import CameraSwitch from './assets/icons/cameraswitch.svg'
 import WelcomeLogo from './assets/welcome-icon.svg'
 
 import isiOS from './utils/isiOS'
@@ -407,18 +407,18 @@ function App() {
 
   return (
     <>
-      <div className="h-full lg:min-h-screen bg-redblack lg:bg-[white] lg:dark:bg-reddark">
+      <div className="h-full lg:min-h-screen bg-redblack lg:bg-[white] lg:dark:bg-redblack">
         <AppDesktopContainer>
           <WebcamBaseModule webcamHoldRef={webcamHoldRef}>
             <img
               src={WelcomeLogo}
               alt={t('welcome.message')}
-              className="welcome hidden lg:block dark:invert-0 invert"
+              className="welcome hidden lg:block dark:invert-0 invert select-none"
               aria-hidden="true"
             />
             <h2
               className={classNames(
-                'text-redlight text-2xl lg:text-4xl font-bold transition delay-300',
+                'text-redlight text-2xl lg:text-5xl font-extrabold transition delay-300',
                 {
                   'opacity-0': isWebcamOn,
                   'opacity-100': !isWebcamOn
@@ -441,23 +441,10 @@ function App() {
             <StartButton onClick={async () => await loadNeuralNetwork()} />
           </WebcamBaseModule>
           {isWebcamOn && (
-            <Webcam
-              id="webcam"
-              ref={webcamRef}
-              muted={true}
-              className={classNames(
-                'Webcam-module rounded-[2rem] lg:h-auto absolute',
-                {
-                  'h-auto': portrait && isMobile,
-                  'h-screen': landscape && isMobile,
-                  'ml-0': landscape && isMobile,
-                  'ml-auto': !isMobile
-                }
-              )}
-              videoConstraints={{
-                ...videoConstraints,
-                facingMode: cameraMode
-              }}
+            <WebcamCoreModule
+              webcamRef={webcamRef}
+              videoConstraints={videoConstraints}
+              cameraMode={cameraMode}
             />
           )}
           <Tensorgram tensorGramRef={tensorGramRef} />
@@ -533,29 +520,7 @@ function App() {
                 />
               )}
             </button>
-            <button
-              title={t('revert.camera')}
-              className={classNames(
-                'transition-all bg-redlight rounded-full p-[0.8rem] active:bg-redlighter',
-                {
-                  flex: !isWebcamOn
-                  // FIXME: flex: webcamOn
-                }
-              )}
-              disabled={!isWebcamOn}
-              onClick={handleRevertCameraMode}
-            >
-              <img
-                src={CameraSwitch}
-                alt={t('revert.camera')}
-                className="h-[2.5rem] transition-all duration-700"
-                style={{
-                  transform: `rotateY(${
-                    cameraMode === CAMERA_MODE.USER ? 180 : 0
-                  }deg)`
-                }}
-              />
-            </button>
+            <CameraSwitchButton onClick={handleRevertCameraMode} />
             <button
               title={isWebcamOn ? t('turn.off.camera') : t('turn.on.camera')}
               className={classNames(
