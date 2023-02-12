@@ -22,6 +22,10 @@ import About from './About'
 import ProgressBar from './components/ProgressBar'
 import ProgressMessage from './components/ProgressMessage'
 import LoadingSpinner from './components/LoadingSpinner'
+import StartButton from './components/StartButton'
+import MobilePanel from './components/MobilePanel'
+import DesktopPanel from './components/DesktopPanel'
+import Tensorgram from './components/Tensorgram'
 
 import VolumeOff from './assets/icons/volume_off.svg'
 import VolumeOn from './assets/icons/volume_on.svg'
@@ -404,7 +408,7 @@ function App() {
 
   return (
     <>
-      <div className="app h-full lg:min-h-screen bg-redblack lg:bg-[white] lg:dark:bg-reddark">
+      <div className="h-full lg:min-h-screen bg-redblack lg:bg-[white] lg:dark:bg-reddark">
         <div
           className={classNames(
             'rounded-lg bg-redblack lg:bg-opacity-0 flex items-end lg:justify-center lg:w-full lg:pt-[2.6rem]',
@@ -454,18 +458,7 @@ function App() {
             >
               {t('welcome.description')}
             </p>
-            <button
-              className={classNames(
-                'bg-redlighter hover:brightness-110 active:ring ring-redlighter/60 w-auto self-center rounded-lg px-4 py-2 cursor-pointer transition text-[1.4rem] lg:text-[1.2rem] font-semibold',
-                {
-                  hidden: modelStatus === 'READY'
-                }
-              )}
-              disabled={modelStatus === 'LOADING'}
-              onClick={async () => await loadNeuralNetwork()}
-            >
-              {modelStatus === 'LOADING' ? t('starting.app') : t('start.app')}
-            </button>
+            <StartButton onClick={async () => await loadNeuralNetwork()} />
           </div>
           {isWebcamOn && (
             <Webcam
@@ -487,32 +480,8 @@ function App() {
               }}
             />
           )}
-
-          <div
-            id="tensorgram"
-            className={classNames('tensorgram', {
-              'w-[calc(100vw-7rem)]': isMobile
-            })}
-            ref={tensorGramRef}
-            style={{
-              height: 'auto',
-              width: 'auto'
-            }}
-          ></div>
-          <div
-            className={classNames(
-              'transition-all absolute lg:flex justify-between hidden pb-[1.25rem] z-10',
-              {
-                'lg:hidden': modelStatus !== 'READY'
-              }
-            )}
-            style={{
-              width:
-                webcamHoldRef.current != null
-                  ? `calc(${webcamHoldRef.current.clientWidth}px - 2.8rem)`
-                  : '30rem'
-            }}
-          >
+          <Tensorgram tensorGramRef={tensorGramRef} />
+          <DesktopPanel webcamHoldRef={webcamHoldRef}>
             <ObjectToVoiceButton />
             <button
               onClick={handleCameraActivation}
@@ -533,7 +502,7 @@ function App() {
                 />
               )}
             </button>
-          </div>
+          </DesktopPanel>
         </div>
         <div
           className="hidden lg:flex lg:items-center lg:flex-col ml-auto mr-auto pt-4"
@@ -547,7 +516,7 @@ function App() {
           <ProgressBar />
           <ProgressMessage />
         </div>
-        <footer
+        <div
           className={classNames(
             'w-full px-[1.2rem] py-[1rem] fixed left-0 bottom-0 flex text-white text-2xl bg-redcandydark lg:hidden lg:flex-row z-30',
             {
@@ -561,16 +530,7 @@ function App() {
           )}
         >
           <LoadingSpinner />
-          <div
-            className={classNames('w-full h-full flex-row justify-between', {
-              hidden:
-                modelStatus === 'LOADING' ||
-                modelStatus === 'START' ||
-                modelStatus === 'ERROR',
-              flex: modelStatus === 'READY',
-              'flex-col': landscape
-            })}
-          >
+          <MobilePanel>
             <button
               title={voiceActivated ? t('turn.off.voice') : t('turn.on.voice')}
               className={classNames(
@@ -638,8 +598,8 @@ function App() {
                 />
               )}
             </button>
-          </div>
-        </footer>
+          </MobilePanel>
+        </div>
       </div>
       <About insideApp />
     </>
