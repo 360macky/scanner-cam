@@ -11,6 +11,7 @@ module.exports = {
         redcandydark: '#D81B60',
         redcandylight: '#FF5C8D',
         redlight: '#FF90BD',
+        redlightdimmed: '#d6729a',
         redlighter: '#FFC2EF',
         redblack: '#141414'
       }

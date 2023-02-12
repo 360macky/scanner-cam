@@ -13,7 +13,7 @@ const ProgressBar = () => {
   return (
     <div
       className={classNames(
-        'w-full dark:bg-redblack bg-gray-200 rounded-full h-4 mb-4 transition-all duration-500 delay-1000',
+        'w-full dark:bg-black/20 bg-gray-200 rounded-full h-4 mb-4 transition-all duration-500 delay-1000',
         {
           'opacity-0': modelStatus === 'READY'
         }

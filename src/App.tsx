@@ -8,6 +8,7 @@ import '@tensorflow/tfjs-backend-webgl'
 import * as cocossd from '@tensorflow-models/coco-ssd'
 import { RootState } from './store/appStore'
 import { useDispatch, useSelector } from 'react-redux'
+import { motion } from 'framer-motion'
 import {
   setSpeech,
   setWebcamLoaded,
@@ -385,20 +386,20 @@ function App() {
     return (
       <button
         title={voiceActivated ? t('turn.on.voice') : t('turn.off.voice')}
-        className="bg-redlighter dark:bg-redlight transition hover:scale-110 rounded-full p-[0.8rem]"
+        className="bg-redlighter dark:bg-redlight transition hover:scale-110 rounded-full p-[0.8rem] active:ring ring-redlight/60"
         onClick={handleVoiceActivation}
       >
         {voiceActivated ? (
           <img
             src={VolumeOn}
             alt={t('turn.off.voice')}
-            className="h-[2.5rem] lg:h-[1.7rem]"
+            className="h-[2.5rem] lg:h-[1.7rem] select-none"
           />
         ) : (
           <img
             src={VolumeOff}
             alt={t('turn.on.voice')}
-            className="h-[2.5rem] lg:h-[1.7rem]"
+            className="h-[2.5rem] lg:h-[1.7rem] select-none"
           />
         )}
       </button>
@@ -416,7 +417,7 @@ function App() {
               className="welcome hidden lg:block dark:invert-0 invert select-none"
               aria-hidden="true"
             />
-            <h2
+            <motion.h2
               className={classNames(
                 'text-redlight text-2xl lg:text-5xl font-extrabold transition delay-300',
                 {
@@ -424,10 +425,14 @@ function App() {
                   'opacity-100': !isWebcamOn
                 }
               )}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              viewport={{ once: true }}
             >
               {t('welcome.message')}
-            </h2>
-            <p
+            </motion.h2>
+            <motion.p
               className={classNames(
                 ' dark:text-[white] text-lg transition delay-300',
                 {
@@ -435,9 +440,13 @@ function App() {
                   'opacity-100': !isWebcamOn
                 }
               )}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              viewport={{ once: true }}
             >
               {t('welcome.description')}
-            </p>
+            </motion.p>
             <StartButton onClick={async () => await loadNeuralNetwork()} />
           </WebcamBaseModule>
           {isWebcamOn && (
@@ -453,19 +462,19 @@ function App() {
             <button
               onClick={handleCameraActivation}
               title={isWebcamOn ? t('turn.off.camera') : t('turn.on.camera')}
-              className="bg-redlighter dark:bg-redlight transition hover:scale-110 rounded-full p-[0.8rem]"
+              className="bg-redlighter dark:bg-redlight active:ring ring-redlight/60 transition hover:scale-110 rounded-full p-[0.8rem]"
             >
               {isWebcamOn ? (
                 <img
                   src={Videocam}
                   alt={t('turn.off.camera')}
-                  className="h-[2.5rem] lg:h-[1.7rem]"
+                  className="h-[2.5rem] lg:h-[1.7rem] select-none"
                 />
               ) : (
                 <img
                   src={VideocamOff}
                   alt={t('turn.on.camera')}
-                  className="h-[2.5rem] lg:h-[1.7rem]"
+                  className="h-[2.5rem] lg:h-[1.7rem] select-none"
                 />
               )}
             </button>
