@@ -12,7 +12,7 @@ const AppDesktopContainer = ({ children }: AppDesktopContainerProps) => {
   return (
     <div
       className={classNames(
-        'rounded-lg bg-redblack lg:bg-opacity-0 flex items-end lg:justify-center lg:w-full lg:pt-[2.6rem]',
+        'rounded-lg bg-white dark:bg-redblack lg:bg-opacity-0 flex items-end lg:justify-center lg:w-full lg:pt-[2.6rem]',
         {
           'h-full w-[calc(100vw-7rem)]': landscape && isMobile,
           'justify-center w-full min-h-full items-center h-[calc(100vh-16rem)]':

@@ -408,7 +408,7 @@ function App() {
 
   return (
     <>
-      <div className="h-full lg:min-h-screen bg-redblack lg:bg-[white] lg:dark:bg-redblack">
+      <div className="h-full lg:min-h-screen bg-[white] dark:bg-redblack lg:bg-[white] lg:dark:bg-redblack">
         <AppDesktopContainer>
           <WebcamBaseModule webcamHoldRef={webcamHoldRef}>
             <img
@@ -419,7 +419,7 @@ function App() {
             />
             <motion.h2
               className={classNames(
-                'text-redlight text-2xl lg:text-5xl font-extrabold transition delay-300',
+                'dark:text-redlight text-redcandydark text-3xl lg:text-5xl font-extrabold transition delay-300',
                 {
                   'opacity-0': isWebcamOn,
                   'opacity-100': !isWebcamOn
