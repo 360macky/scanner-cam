@@ -10,7 +10,11 @@ const initialState: InitialState = {
   detections: [],
   modelStatus: 'START',
   isWebcamOn: false,
-  cameraMode: CAMERA_MODE.USER
+  cameraMode: CAMERA_MODE.USER,
+  detailedDetections: [],
+  userConfiguration: {
+    detectionFrequency: 200
+  }
 }
 
 export const appSlice = createSlice({
@@ -37,6 +41,23 @@ export const appSlice = createSlice({
         state.cameraMode === CAMERA_MODE.USER
           ? CAMERA_MODE.ENVIRONMENT
           : CAMERA_MODE.USER
+    },
+    setDetailedDetections: (state, action: PayloadAction<any[]>) => {
+      state.detailedDetections = action.payload
+    },
+    pushDetailedDetections: (state, action: PayloadAction<any>) => {
+      // Push a list of detections to the detailedDetections list
+      let newDetections = action.payload
+      // If any string of newDetections is in the detailedDetections list, skip it, otherwise add it
+      newDetections = newDetections.filter((newDetection: any) => {
+        return !state.detailedDetections.find(
+          (detection) => detection === newDetection
+        )
+      })
+      state.detailedDetections = [...state.detailedDetections, ...newDetections]
+    },
+    setUserConfiguration: (state, action: PayloadAction<any>) => {
+      state.userConfiguration = action.payload
     }
   }
 })
@@ -47,6 +68,9 @@ export const {
   setDetections,
   setModelStatus,
   toggleWebcam,
-  toggleCameraMode
+  toggleCameraMode,
+  setDetailedDetections,
+  pushDetailedDetections,
+  setUserConfiguration
 } = appSlice.actions
 export default appSlice.reducer
