@@ -11,6 +11,10 @@ interface InitialState {
   modelStatus: BROWSER_MODEL_STATUS
   isWebcamOn: boolean
   cameraMode: CAMERA_MODE
+  detailedDetections: any[]
+  userConfiguration: {
+    detectionFrequency: number
+  }
 }
 
 export default InitialState
