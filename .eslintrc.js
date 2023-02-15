@@ -26,7 +26,8 @@ module.exports = {
     'space-before-function-paren': 'off',
     '@typescript-eslint/space-before-function-paren': 'off',
     '@typescript-eslint/member-delimiter-style': 'off',
-    'multiline-ternary': 'off'
+    'multiline-ternary': 'off',
+    '@typescript-eslint/no-unused-vars': 'warn'
   },
   ignorePatterns: ['node_modules', 'dist', 'build', 'coverage', 'public']
 }
