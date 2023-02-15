@@ -22,6 +22,7 @@
 .env.production.local
 
 npm-debug.log*
+firestore-debug.log*
 yarn-debug.log*
 yarn-error.log*
 /test-results/
