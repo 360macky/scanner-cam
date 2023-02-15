@@ -1,0 +1,94 @@
+:root {
+  --pink: #ffc2ef;
+}
+
+.welcome {
+  height: 35%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .welcome {
+    animation: App-logo-spin infinite 30s ease;
+  }
+  .message-loading-mobile {
+    animation: App-loading-mobile infinite 3s ease;
+  }
+}
+
+@keyframes App-loading-mobile {
+  0% {
+    width: 80%;
+  }
+  50% {
+    width: 95%;
+  }
+  100% {
+    width: 80%;
+  }
+}
+
+@keyframes App-logo-spin {
+  0% {
+    transform: rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 20;
+  }
+  20% {
+    opacity: 100;
+  }
+  50% {
+    transform: scale(0.5) rotate(180deg);
+    opacity: 100;
+  }
+  95% {
+    transform: rotate(360deg);
+    opacity: 100;
+  }
+  100% {
+    transform: rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.Webcam-module {
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.tensorgram {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.tensorframe {
+  border: 0.4rem solid var(--pink);
+  border-radius: 1.4rem;
+}
+
+.tensorframe div {
+  position: absolute;
+  bottom: -1.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 20;
+}
+
+.tensorframe p {
+  background-color: var(--pink);
+  border-radius: 999px;
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+  padding-bottom: 0.2rem;
+  padding-top: 0.2rem;
+  font-size: 1.2rem;
+  text-transform: capitalize;
+  color: #a00037;
+  font-weight: 700;
+}
