@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     backgroundColor: (theme) => theme('colors'),
     borderColor: (theme) => theme('colors'),
@@ -13,7 +13,8 @@ module.exports = {
         redlight: '#FF90BD',
         redlightdimmed: '#d6729a',
         redlighter: '#FFC2EF',
-        redblack: '#141414'
+        redblack: '#141414',
+        redblackdark: '#0f0f0f'
       }
     }
   },
