@@ -1,5 +1,5 @@
 {
-  "welcome.message": "Welcome to ScannerCam",
+  "welcome.message": "Hola ScannerCam",
   "welcome.description": "Enciende tu cámara y nuestra IA reconocerá los objetos en pantalla.",
   "identifyprefix": "Estoy identificando",
   "turn.on.voice": "Encender objeto-a-voz",
@@ -17,6 +17,7 @@
   "error.offline": "ScannerCam: Solo necesitamos Internet para cargar el modelo. Después de eso, puedes usarlo sin conexión. Por favor, comprueba su conexión.",
   "loading.model.message": "Cargando modelo de visión artificial",
   "complete.model.message": "Listo. ¡Ya puedes usar ScannerCam!",
+  "nav.about.app": "Acerca de",
   "nav.share.twitter": "Compartir en Twitter",
   "start.app": "Iniciar app",
   "starting.app": "Iniciando app",

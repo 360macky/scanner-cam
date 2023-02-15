@@ -17,6 +17,7 @@
   "error.offline": "ScannerCam: We only need Internet to load the model. After that you can use it offline. Please check your connection.",
   "loading.model.message": "Loading Computer Vision model",
   "complete.model.message": "Model loaded Now you can use ScannerCam",
+  "nav.about.app": "About",
   "nav.share.twitter": "Share on Twitter",
   "start.app": "Start app",
   "starting.app": "Starting app",
