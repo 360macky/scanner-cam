@@ -1,6 +1,5 @@
 import React from 'react'
 import classNames from 'classnames'
-import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { RootState } from '../store/appStore'
 import { BROWSER_MODEL_STATUS } from '../types/initialState'
@@ -8,10 +7,10 @@ import { motion } from 'framer-motion'
 
 interface ButtonProps {
   onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  title: string
 }
 
-const StartButton = ({ onClick }: ButtonProps) => {
-  const { t } = useTranslation()
+const StartButton = ({ onClick, title }: ButtonProps) => {
   const modelStatus: BROWSER_MODEL_STATUS = useSelector(
     (state: RootState) => state.app.modelStatus
   )
@@ -29,8 +28,9 @@ const StartButton = ({ onClick }: ButtonProps) => {
       )}
       disabled={modelStatus === 'LOADING'}
       onClick={onClick}
+      title={title}
     >
-      {modelStatus === 'LOADING' ? t('starting.app') : t('start.app')}
+      {title}
     </motion.button>
   )
 }
