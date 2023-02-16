@@ -12,7 +12,7 @@ interface FooterProps {
 
 function Footer({ t }: FooterProps) {
   return (
-    <footer className="hidden sm:flex p-4 bg-white shadow md:flex-col md:items-center md:justify-between md:p-6 md:pb-12 dark:bg-redblackdark">
+    <footer className="hidden sm:flex p-4 bg-white shadow md:flex-col md:items-center md:justify-between md:p-6 dark:bg-redblackdark">
       <div className="flex justify-between w-full">
         <span className="text-sm text-gray-500 sm:text-center dark:text-white">
           © 2024{' '}
@@ -27,9 +27,29 @@ function Footer({ t }: FooterProps) {
               About
             </Link>
           </li>
+          <li>
+            <a
+              href="https://github.com/360macky/scanner-cam"
+              className="mr-4 hover:underline md:mr-6"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://twitter.com/360macky"
+              className="mr-4 hover:underline md:mr-6"
+              target="_blank"
+              rel="noreferrer"
+            >
+              @360macky
+            </a>
+          </li>
         </ul>
       </div>
-      <div className="flex gap-x-2 py-4">
+      <div className="flex gap-x-2 py-4 justify-start w-full">
         <Image
           src={TensorFlowImage}
           height={25}
