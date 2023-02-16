@@ -40,7 +40,7 @@ const Header = ({ t }: HeaderProps) => {
     <Disclosure
       as="nav"
       className={classNames(
-        'bg-gray-100 dark:bg-redblackdark sticky top-0 sm:block',
+        'bg-gray-100 dark:bg-redblackdark sticky top-0 sm:block z-30',
         {
           hidden: router.pathname === '/'
         }

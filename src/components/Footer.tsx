@@ -39,6 +39,16 @@ function Footer({ t }: FooterProps) {
           </li>
           <li>
             <a
+              href="https://tally.so/r/w7qXP6"
+              className="mr-4 hover:underline md:mr-6"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Issues
+            </a>
+          </li>
+          <li>
+            <a
               href="https://twitter.com/360macky"
               className="mr-4 hover:underline md:mr-6"
               target="_blank"
