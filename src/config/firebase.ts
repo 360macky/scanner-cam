@@ -1,7 +1,7 @@
 /**
  * Firebase configuration
  * @description This file contains the configuration for the firebase app as
- * well as the functions to interact with the database
+ * well as the functions to interact with the database.
  */
 
 import {
@@ -41,8 +41,12 @@ const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 const db = getFirestore(app)
 
-connectAuthEmulator(auth, 'http://localhost:9099')
-connectFirestoreEmulator(db, 'localhost', 8080)
+// If we are in development, we connect to the emulator:
+const isDev = process.env.NODE_ENV !== 'production'
+if (isDev) {
+  connectAuthEmulator(auth, 'http://localhost:9099')
+  connectFirestoreEmulator(db, 'localhost', 8080)
+}
 
 const provider = new GoogleAuthProvider()
 
@@ -90,7 +94,6 @@ export {
   onAuthStateChanged,
   provider,
   signInWithPopup,
-  GoogleAuthProvider,
   createUserInFirestore,
   updateDetectionFrequency,
   getDetectionFrequency
