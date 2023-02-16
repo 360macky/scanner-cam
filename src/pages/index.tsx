@@ -537,13 +537,13 @@ const Home: NextPage = () => {
                   <Image
                     src={VolumeOn}
                     alt={t('turn.on.voice')}
-                    className="h-[2.5rem]"
+                    className="h-[2.5rem] w-[2.5rem]"
                   />
                 ) : (
                   <Image
                     src={VolumeOff}
                     alt={t('turn.off.voice')}
-                    className="h-[2.5rem]"
+                    className="h-[2.5rem] w-[2.5rem]"
                   />
                 )}
               </button>
@@ -560,13 +560,13 @@ const Home: NextPage = () => {
                   <Image
                     src={Videocam}
                     alt={t('revert.camera')}
-                    className="h-[2.5rem]"
+                    className="h-[2.5rem] w-[2.5rem]"
                   />
                 ) : (
                   <Image
                     src={VideocamOff}
                     alt={t('revert.camera')}
-                    className="h-[2.5rem]"
+                    className="h-[2.5rem] w-[2.5rem]"
                   />
                 )}
               </button>
