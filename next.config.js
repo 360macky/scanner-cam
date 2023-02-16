@@ -4,7 +4,7 @@ const { i18n } = require('./next-i18next.config')
 const nextConfig = {
   i18n,
   images: {
-    domains: ['googleusercontent.com']
+    domains: ['googleusercontent.com', 'lh3.googleusercontent.com']
   }
 }
 
