@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../store/appStore'
 import { CAMERA_MODE } from '../types/initialState'
 import CameraSwitch from '../assets/icons/cameraswitch.svg'
+import Image from 'next/image'
 
 interface ButtonProps {
   onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
@@ -30,10 +31,10 @@ const CameraSwitchButton = ({ onClick }: ButtonProps) => {
       disabled={!isWebcamOn}
       onClick={onClick}
     >
-      <img
+      <Image
         src={CameraSwitch}
         alt={t('revert.camera')}
-        className="h-[2.5rem] transition-all duration-700"
+        className="h-[2.5rem] w-[2.5rem] transition-all duration-700"
         style={{
           transform: `rotateY(${cameraMode === CAMERA_MODE.USER ? 180 : 0}deg)`
         }}
