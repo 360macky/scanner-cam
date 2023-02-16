@@ -54,6 +54,7 @@ import wait from '../utils/wait'
 
 import ScannerDetection from '../types/ScannerDetection'
 import { BROWSER_MODEL_STATUS, CAMERA_MODE } from '../types/initialState'
+import { DEFAULT_DETECTION_FREQUENCY } from '../ui'
 import { AuthContext } from '../auth/AuthProvider'
 
 let _voices: any
@@ -157,7 +158,9 @@ const Home: NextPage = () => {
   const { portrait, landscape } = useWindowOrientation()
   const [neuralNetwork, setNeuralNetwork] = useState<any>(null)
   const [voiceUI, setVoiceUI] = useState<boolean>(false)
-  const [detectionFrequency, setDetectionFrequency] = useState<number>(200)
+  const [detectionFrequency, setDetectionFrequency] = useState<number>(
+    DEFAULT_DETECTION_FREQUENCY
+  )
 
   const videoConstraints = {
     facingMode: CAMERA_MODE.USER
