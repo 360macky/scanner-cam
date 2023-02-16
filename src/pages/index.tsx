@@ -10,6 +10,7 @@ import { NextPage, GetStaticProps } from 'next/types'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Head from 'next/head'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 
 import Webcam from 'react-webcam'
 import classNames from 'classnames'
@@ -39,7 +40,7 @@ import CameraSwitchButton from '../components/CameraSwitchButton'
 import MobilePanel from '../components/MobilePanel'
 import DesktopPanel from '../components/DesktopPanel'
 import Tensorgram from '../components/Tensorgram'
-import AppDesktopContainer from '../components/AppDesktopContainer'
+
 import WebcamBaseModule from '../components/WebcamBaseModule'
 import WebcamCoreModule from '../components/WebcamCoreModule'
 
@@ -56,6 +57,11 @@ import ScannerDetection from '../types/ScannerDetection'
 import { BROWSER_MODEL_STATUS, CAMERA_MODE } from '../types/initialState'
 import { DEFAULT_DETECTION_FREQUENCY } from '../ui'
 import { AuthContext } from '../auth/AuthProvider'
+
+const AppDesktopContainer = dynamic(
+  async () => await import('../components/AppDesktopContainer'),
+  { ssr: false }
+)
 
 let _voices: any
 const _cache: any = {}
