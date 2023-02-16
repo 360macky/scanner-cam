@@ -23,7 +23,7 @@
 
 ## 🤖 Concept
 
-ScannerCam is a web application that uses the [TensorFlow.js](https://www.tensorflow.org/js) computer vision library to detect objects in real time with the camera of a mobile device or a computer.
+ScannerCam is a web application that uses the [TensorFlow.js](https://www.tensorflow.org/js) computer vision library to detect objects in real time with the camera of a mobile device or a computer. Built with Next.js, React, TypeScript, TailwindCSS, and Playwright.
 
 ## 🛠 Core Development
 
