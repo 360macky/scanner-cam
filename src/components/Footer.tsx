@@ -12,7 +12,7 @@ interface FooterProps {
 
 function Footer({ t }: FooterProps) {
   return (
-    <footer className="p-4 bg-white shadow md:flex-col md:items-center md:justify-between md:p-6 md:pb-12 dark:bg-redblackdark">
+    <footer className="hidden sm:flex p-4 bg-white shadow md:flex-col md:items-center md:justify-between md:p-6 md:pb-12 dark:bg-redblackdark">
       <div className="flex justify-between w-full">
         <span className="text-sm text-gray-500 sm:text-center dark:text-white">
           © 2024{' '}
