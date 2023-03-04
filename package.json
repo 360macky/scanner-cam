@@ -17,6 +17,7 @@
     "@types/node": "^17.0.45",
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
+    "@vercel/analytics": "^0.1.11",
     "classnames": "^2.3.2",
     "firebase": "^9.17.1",
     "framer-motion": "^9.0.2",
